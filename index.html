@@ -167,8 +167,10 @@
   const ovTitle = document.getElementById("ovTitle");
   const ovNew = document.getElementById("ovNew");
 
+  // Change this value whenever a scene deployment needs viewers to reload its assets.
+  const release = "20260922-codex-fix";
   pages.forEach(p => {
-    const url = p.dir + "/index.html";
+    const url = p.dir + "/index.html?v=" + release;
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
