@@ -1,0 +1,13 @@
+# Dependencies and local browser downloads in any project folder
+node_modules/
+.browsers/
+
+# Local screenshots and browser-verification artifacts
+preview.png
+preview-rotated.png
+verify.cjs
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.vscode/

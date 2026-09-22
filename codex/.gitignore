@@ -1,0 +1,15 @@
+# Installed packages and locally downloaded browser binaries
+node_modules/
+.browsers/
+
+# Local visual-regression captures
+preview.png
+preview-rotated.png
+
+# One-off local browser verification script
+verify.cjs
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.vscode/
