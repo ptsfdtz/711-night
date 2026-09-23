@@ -1,0 +1,290 @@
+{
+  "scene": "Rainy Night Convenience Store Corner",
+  "camera": {
+    "type": "Perspective",
+    "position": [0, 1.5, 3.5],
+    "target": [0, 0.8, 0],
+    "fov": 45,
+    "aspect": 1.778,
+    "near": 0.1,
+    "far": 100
+  },
+  "lighting": {
+    "ambient": "#ffe4c5",
+    "ambientIntensity": 0.4,
+    "hemisphere": {
+      "groundColor": "#2c3e50",
+      "skyColor": "#1a1a2e",
+      "groundOffset": 1
+    },
+    "directional": [
+      {
+        "position": [x: -2, y: 4, z: 2],
+        "intensity": 0.6,
+        "color": "#ff7f50"
+      },
+      {
+        "position": [x: 2, y: 4, z: -2],
+        "intensity": 0.4,
+        "color": "#1e90ff"
+      }
+    ],
+    "pointLights": [
+      {
+        "name": "storeCeiling",
+        "position": [0, 3, 0],
+        "intensity": 5,
+        "color": "#fff5e6",
+        "distance": 10
+      },
+      {
+        "name": "signNeon",
+        "position": [0.5, 2.5, -1],
+        "intensity": 3,
+        "color": "#ff00ff",
+        "distance": 5
+      },
+      {
+        "name": "streetLamp",
+        "position": [-1.2, 2.5, 0],
+        "intensity": 2.5,
+        "color": "#fca311",
+        "distance": 6
+      }
+    ]
+  },
+  "ground": {
+    "type": "Plane",
+    "size": 10,
+    "rotation": -1.5708,
+    "material": "white concrete with subtle grain",
+    "border": "thin black outline"
+  },
+  "store": {
+    "width": 4,
+    "depth": 4,
+    "height": 3.5,
+    "style": "Japanese convenience store",
+    "texture": "drywall white",
+    "outline": true,
+    "windows": {
+      "glass": true,
+      "refraction": 1.0,
+      "reflectivity": 0.1,
+      "grid": true,
+      "gridColor": "#2c3e50",
+      "gridThickness": 0.02
+    },
+    "door": "automatic sliding, dark wood",
+    "sign": "roof-mounted neon sign, kanji characters, faint flicker",
+    "roof": "tiled roof, dark brown, slight overhang",
+    "eaves": "extended, with drip animations"
+  },
+  "props": [
+    {
+      "name": "vendingMachine",
+      "type": "cylinder",
+      "size": [0.8, 1.8, 0.8],
+      "position": [-2, 0, 1.5],
+      "texture": "metal gray",
+      "illumination": "neon buttons blue"
+    },
+    {
+      "name": "bicycle",
+      "type": "compound",
+      "position": [2, 0, 0.5],
+      "lean": 10,
+      "texture": "matte black",
+      "details": "rain droplets on frame"
+    },
+    {
+      "name": "umbrellaRack",
+      "type": "rack",
+      "position": [-1.5, 0, -1.5],
+      "texture": "wooden",
+      "umbrellas": ["closed", "wet"]
+    },
+    {
+      "name": "trashCan",
+      "type": "cylindrical",
+      "position": [1.2, 0, -1],
+      "height": 0.9,
+      "texture": "gray plastic",
+      "detail": "wet stains"
+    },
+    {
+      "name": "telephonePole",
+      "type": "pole",
+      "position": [0, 0, -2],
+      "height": 5,
+      "wires": "multiple thin lines",
+      "top": "street light"
+    },
+    {
+      "name": "signpost",
+      "type": "post",
+      "position": [2.5, 0, -0.5],
+      "directionSign": "turn left / convenience store 200m",
+      "texture": "wooden board"
+    },
+    {
+      "name": "guardRail",
+      "type": "rail",
+      "position": [-2.5, 0, 0],
+      "length": 6,
+      "texture": "metal pipe"
+    },
+    {
+      "name": "parkingSpot",
+      "type": "marked area",
+      "position": [3, 0, 1],
+      "size": [2.5, 5],
+      "texture": "asphalt with white paint",
+      "detail": "raindrop reflection"
+    },
+    {
+      "name": "drainGutter",
+      "type": "open gutter",
+      "position": [0, 0, -2.5],
+        "length": 4,
+      "texture": "dark metal",
+      "waterFlow": "slow drip"
+    },
+    {
+      "name": "convenienceStoreInside": {
+      "width": 4,
+      "depth": 4,
+      "height": 3,
+      "style": "compact Japanese convenience store interior",
+      "flooring": "light wood slats",
+      "walls": "white panels, subtle texture",
+      "lighting": {
+        "ceilingLights": "warm fluorescent, soft glow",
+        "wallLights": "small amber wall sconces",
+        "accentLights": "neon tubes orange"
+      },
+      "shelves": [
+        {
+          "name": "shelves",
+          "type": "rectangular",
+          "count": 4,
+          "spacing": 0.8,
+          "height": 2.2,
+          "depth": 0.3,
+          "texture": "cardboard brown",
+          "items": [
+            "drink bottles",
+            "canned goods",
+            "onigiri wraps",
+            "snack packs"
+          ]
+        }
+      ],
+      "cashier": {
+        "type": "counter",
+        "position": [0, 0, -2.2],
+        "width": 2,
+        "texture": "dark wood",
+        "items": ["cash register", "card terminal", "plastic bags"]
+      },
+      "drinkCooler": {
+        "type": "glass door cooler",
+        "position": [-1.5, 0, -1],
+        "size": [1.2, 1.8, 0.6],
+        "texture": "transparent blue with frost",
+        "items": ["cola", "water", "tea"]
+      },
+      "kitchenArea": {
+        "type": "prep counter",
+        "position": [1.5, 0, -0.5],
+        "size": [1.5, 0.8, 0.6],
+        "texture": "stainless steel",
+        "items": ["rice balls", "bento boxes", "magazines"]
+      },
+      "posters": [
+        {
+          "name": "poster1",
+          "position": [-0.5, 1.2, -1.5],
+          "size": [0.8, 1.2],
+          "content": "anime promotion, pastel colors"
+        },
+        {
+          "name": "poster2",
+          "position": [0.5, 1.2, -1.5],
+          "size": [0.8, 1.2],
+          "content": "limited edition manga, soft light"
+        }
+      ],
+      " magazineRack": {
+        "type": "slanted rack",
+        "position": [0, 0, -2.8],
+        "texture": "paper brown",
+        "magazines": [" monthly", "weekly" ]
+      }
+    }
+  ],
+  "effects": {
+    "rain": {
+      "intensity": 0.8,
+      "size": 0.05,
+      "speed": 0.3,
+      "color": "#88c0d0",
+      "viewportCoverage": 0.7
+    },
+    "drip": {
+      "eaves": ["store sign eave", "roof eave"],
+      "frequency": 2,
+      "fallLength": 0.3,
+      "splash": false
+    },
+    "surfaceWater": {
+      "groundPuddles": true,
+      "reflection": true,
+      "rippleSpeed": 0.02,
+      "puddleCount": 8,
+      "sizeRange": [0.1, 0.5]
+    },
+    "glassRainSlide": {
+      "direction": "vertical",
+      "speed": 0.5,
+      "accumulation": "edge of windows",
+      "beading": true
+    },
+    "signFlicker": {
+      "enabled": true,
+      "frequency": 0.5,
+      "variance": 0.2,
+      "colors": ["#ff00ff", "#ffff00", "#ff7f50"]
+    },
+    "doorAnimation": {
+      "type": "automatic sliding",
+      "openDuration": 2,
+      "closeDuration": 3,
+      "triggerDistance": 1.5
+    },
+    "lightPulse": {
+      "streetLamp": "subtle pulse 0.8-1.2 intensity",
+      "signNeon": "faint flicker every 4 seconds"
+    },
+    "reflections": {
+      "wetAsphalt": true,
+      "gloss": 0.4,
+      "rainRefract": 1.01
+    }
+  },
+  "artStyle": {
+    "render": "toonShading",
+    "colorPalette": "soft neon accents against muted night blues",
+    "outlining": "clear black contours",
+    "materials": "matte with subtle wetness map",
+    "lightingContrast": "warm interior vs cool exterior",
+    "atmosphere": "quiet, healing, slight urban loneliness"
+  },
+  "cameraMovement": {
+    "enableOrbit": true,
+    "dragRotate": true,
+    "wheelZoom": true,
+    "limitPolar": [0.2, 1.5],
+    "limitAzimuth": [-Math.PI, Math.PI]
+  }
+}

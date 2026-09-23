@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rainy Night Convenience Store - Micro 3D Model</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { overflow:hidden; background:#0a0a12; }
+    canvas { display:block; }
+  </style>
+</head>
+<body>
+  <script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a12);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 2.4, 7);
+camera.lookAt(0, 1.4, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+document.body.appendChild(renderer.domElement);
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.4, 0);
+controls.minDistance = 4;
+controls.maxDistance = 14;
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.maxPolarAngle = Math.PI / 2.2;
+controls.minPolarAngle = 0.2;
+controls.maxAzimuthAngle = Math.PI;
+controls.minAzimuthAngle = -Math.PI;
+
+// Lighting (warm interior vs cool exterior, from scene.json)
+scene.add(new THREE.AmbientLight(0xffe4c5, 0.4));
+
+const hemi = new THREE.HemisphereLight(0x1a1a2e, 0x2c3e50, 0.6);
+hemi.position.set(0, 1, 0);
+scene.add(hemi);
+
+const warmDir = new THREE.DirectionalLight(0xff7f50, 0.6);
+warmDir.position.set(-2, 4, 2);
+scene.add(warmDir);
+
+const coolDir = new THREE.DirectionalLight(0x1e90ff, 0.4);
+coolDir.position.set(2, 4, -2);
+scene.add(coolDir);
+
+const ceilingLight = new THREE.PointLight(0xfff5e6, 5, 10);
+ceilingLight.position.set(0, 3, 0);
+scene.add(ceilingLight);
+
+const neonLight = new THREE.PointLight(0xff00ff, 3, 5);
+neonLight.position.set(0.5, 2.5, 1.5);
+scene.add(neonLight);
+
+const streetLight = new THREE.PointLight(0xfca311, 2.5, 6);
+streetLight.position.set(-1.2, 2.5, 0);
+scene.add(streetLight);
+
+// Ground
+const groundGeo = new THREE.PlaneGeometry(10, 10);
+const groundMat = new THREE.MeshStandardMaterial({ color: 0xf0f0f0, roughness: 0.7, metalness: 0 });
+const ground = new THREE.Mesh(groundGeo, groundMat);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = 0;
+scene.add(ground);
+
+// Store base - simplified
+const storeGeo = new THREE.BoxGeometry(4, 3.5, 4);
+const storeMat = new THREE.MeshStandardMaterial({ color: 0xe9e6df, roughness: 0.6, metalness: 0.05 });
+const store = new THREE.Mesh(storeGeo, storeMat);
+store.position.set(0, 1.75, 0);
+scene.add(store);
+
+// Storefront glow - warm interior light spilling through the glass
+const frontGlow = new THREE.Mesh(
+  new THREE.PlaneGeometry(3.4, 2.2),
+  new THREE.MeshStandardMaterial({ color: 0xfff2d0, emissive: 0xffd9a0, emissiveIntensity: 1.1, transparent: true, opacity: 0.95 })
+);
+frontGlow.position.set(0, 1.35, 2.02);
+scene.add(frontGlow);
+
+// Storefront window grid (mullions) on the camera-facing side
+const mullionMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.8 });
+const barT = 0.06;
+for (let x = -1.7; x <= 1.71; x += 0.567) {
+  const bar = new THREE.Mesh(new THREE.BoxGeometry(barT, 2.2, barT), mullionMat);
+  bar.position.set(x, 1.35, 2.04);
+  scene.add(bar);
+}
+for (let y = 0.25; y <= 2.46; y += 0.55) {
+  const bar = new THREE.Mesh(new THREE.BoxGeometry(3.4, barT, barT), mullionMat);
+  bar.position.set(0, y, 2.04);
+  scene.add(bar);
+}
+
+// Roof overhang (simple)
+const roofGeo = new THREE.BoxGeometry(4.4, 0.3, 4.4);
+const roofMat = new THREE.MeshStandardMaterial({ color: 0x2d2d2d, roughness: 0.9 });
+const roof = new THREE.Mesh(roofGeo, roofMat);
+roof.position.set(0, 3.6, 0);
+scene.add(roof);
+
+// Neon sign (plane with emissive) above the storefront
+const signGeo = new THREE.PlaneGeometry(2.2, 0.7);
+const signMat = new THREE.MeshStandardMaterial({ color: 0xff00ff, emissive: 0xff00ff, emissiveIntensity: 1.0, transparent: true });
+const sign = new THREE.Mesh(signGeo, signMat);
+sign.position.set(0, 3.15, 2.05);
+scene.add(sign);
+
+// Vending machine
+const vending = new THREE.Group();
+const vendingBody = new THREE.Mesh(
+  new THREE.BoxGeometry(0.8, 1.6, 0.7),
+  new THREE.MeshStandardMaterial({ color: 0x555555, metalness: 0.8, roughness: 0.35 })
+);
+vendingBody.position.y = 0.8;
+vending.add(vendingBody);
+const vendingPanel = new THREE.Mesh(
+  new THREE.PlaneGeometry(0.55, 1.2),
+  new THREE.MeshStandardMaterial({ color: 0x1e90ff, emissive: 0x1e90ff, emissiveIntensity: 0.8 })
+);
+vendingPanel.position.set(0, 0.85, 0.36);
+vending.add(vendingPanel);
+vending.position.set(-2.9, 0, 1.2);
+scene.add(vending);
+
+// Bicycle (simple)
+const bikeGeo = new THREE.Group();
+const frameGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.9, 32);
+const frameMat = new THREE.MeshStandardMaterial({ color: 0x222222 });
+const frame = new THREE.Mesh(frameGeo, frameMat);
+frame.rotation.z = Math.PI / 2;
+frame.position.y = 0.5;
+bikeGeo.add(frame);
+const wheelGeo = new THREE.TorusGeometry(0.32, 0.03, 8, 24);
+const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111 });
+[-0.4, 0.4].forEach(dx => {
+  const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+  wheel.position.set(dx, 0.32, 0);
+  bikeGeo.add(wheel);
+});
+bikeGeo.position.set(2.9, 0, 1.3);
+scene.add(bikeGeo);
+
+// Trash can
+const trashGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.8, 32);
+const trashMat = new THREE.MeshStandardMaterial({ color: 0x444444 });
+const trash = new THREE.Mesh(trashGeo, trashMat);
+trash.position.set(2.6, 0.4, -1.2);
+scene.add(trash);
+
+// Telephone pole
+const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 5, 32);
+const poleMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
+const pole = new THREE.Mesh(poleGeo, poleMat);
+pole.position.set(3.2, 2.5, -2.6);
+scene.add(pole);
+
+// Simple rain particles
+const rainCount = 500;
+const rainGeo = new THREE.BufferGeometry();
+const rainPositions = new Float32Array(rainCount * 3);
+const rainSizes = new Float32Array(rainCount);
+for (let i = 0; i < rainCount; i++) {
+  rainPositions[i * 3] = (Math.random() - 0.5) * 12;
+  rainPositions[i * 3 + 1] = Math.random() * 6;
+  rainPositions[i * 3 + 2] = (Math.random() - 0.5) * 12;
+  rainSizes[i] = Math.random() * 0.2 + 0.05;
+}
+rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+rainGeo.setAttribute('size', new THREE.BufferAttribute(rainSizes, 1));
+const rainMat = new THREE.PointsMaterial({ color: 0x88c0d0, size: 0.1, transparent: true, opacity: 0.6 });
+const rain = new THREE.Points(rainGeo, rainMat);
+scene.add(rain);
+
+// Simple animation loop
+let time = 0;
+function animate() {
+  time += 0.016;
+  // rain slide
+  const pos = rain.geometry.attributes.position;
+  for (let i = 0; i < rainCount; i++) {
+    const y = pos.getY(i) - 0.06;
+    pos.setY(i, y < 0 ? 6 : y);
+  }
+  pos.needsUpdate = true;
+  // sign flicker
+  const intensity = 0.8 + Math.sin(time * 2) * 0.25;
+  sign.material.emissiveIntensity = intensity;
+  neonLight.intensity = 2.6 + Math.sin(time * 2) * 0.5;
+  controls.update();
+  composer.render();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Resize handling
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

@@ -28,11 +28,21 @@
     </td>
   </tr>
   <tr>
-    <td valign="top">
-      <a href="https://ptsfdtz.github.io/711-night/qwen/"><img src="docs/previews/qwen.png" alt="Qwen 生成的雨夜便利店场景预览"></a><br>
-      <b>Qwen</b> · <a href="https://ptsfdtz.github.io/711-night/qwen/">打开互动场景</a>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/qwen3.6-flash/"><img src="docs/previews/qwen.png" alt="Qwen 3.6 Flash 生成的雨夜便利店场景预览"></a><br>
+      <b>Qwen 3.6 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/qwen3.6-flash/">打开互动场景</a>
     </td>
-    <td></td>
+    <td width="50%" valign="top">
+      <b>Ling 3.0 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/Ling3.0-flash/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <b>MiniMax M3</b> · <a href="https://ptsfdtz.github.io/711-night/MiniMax-M3/">打开互动场景</a>
+    </td>
+    <td valign="top">
+      <b>Nemotron 3.5 Lightning</b> · <a href="https://ptsfdtz.github.io/711-night/Nemotron3.5Lightning/">打开互动场景</a>
+    </td>
   </tr>
 </table>
 
