@@ -26,12 +26,27 @@
   header {
     padding: 28px 32px 18px;
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 14px;
     flex-wrap: wrap;
   }
+  header .titles { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
   header h1 { font-size: 20px; font-weight: 600; letter-spacing: .5px; }
   header span { color: var(--muted); font-size: 13px; }
+
+  .gh {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .gh:hover { color: var(--text); border-color: var(--accent); background: var(--card-hover); }
 
   .grid {
     display: grid;
@@ -47,10 +62,11 @@
     border: 1px solid var(--border);
     border-radius: 14px;
     overflow: hidden;
-    cursor: pointer;
-    transition: transform .18s ease, border-color .18s ease, background .18s ease;
     display: flex;
     flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
   }
   .card:hover {
     transform: translateY(-3px);
@@ -61,96 +77,44 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
     padding: 12px 14px;
     border-bottom: 1px solid var(--border);
   }
   .card-head .name { font-size: 14px; font-weight: 600; }
   .card-head .path { font-size: 11px; color: var(--muted); margin-left: 8px; }
-  .open-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 11px;
-    padding: 4px 9px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all .15s ease;
-    text-decoration: none;
-  }
-  .open-btn:hover { color: var(--text); border-color: var(--accent); }
+  .card-head .go { font-size: 13px; color: var(--muted); }
+  .card:hover .go { color: var(--accent); }
 
   .thumb {
     position: relative;
     aspect-ratio: 16 / 10;
-    background: #fff;
+    background: #0e1118;
     overflow: hidden;
   }
-  .thumb iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 200%;
-    height: 200%;
-    border: 0;
-    transform: scale(.5);
-    transform-origin: top left;
-    pointer-events: none;
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-
-  /* Fullscreen overlay */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    z-index: 1000;
-    display: none;
-    flex-direction: column;
-  }
-  .overlay.active { display: flex; }
-  .overlay-bar {
-    height: 44px;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 14px;
-    background: #101319;
-    border-bottom: 1px solid var(--border);
-  }
-  .overlay-bar .title { font-size: 14px; font-weight: 600; }
-  .overlay-bar .actions { display: flex; gap: 8px; }
-  .overlay-bar button, .overlay-bar a {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 12px;
-    padding: 5px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .overlay-bar button:hover, .overlay-bar a:hover { border-color: var(--accent); }
-  .overlay iframe { flex: 1 1 auto; width: 100%; border: 0; background: #fff; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>711 Night · 预览入口</h1>
-  <span>点击卡片全屏预览，或在新标签页打开</span>
+  <div class="titles">
+    <h1>711 Night · 预览入口</h1>
+    <span>点击卡片即可在新标签页打开互动场景</span>
+  </div>
+  <a class="gh" href="https://github.com/ptsfdtz/711-night" target="_blank" rel="noopener" title="GitHub 仓库" aria-label="GitHub 仓库">
+    <svg viewBox="0 0 16 16" width="22" height="22" aria-hidden="true" fill="currentColor">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+    </svg>
+  </a>
 </header>
 
 <div class="grid" id="grid"></div>
-
-<div class="overlay" id="overlay">
-  <div class="overlay-bar">
-    <div class="title" id="ovTitle"></div>
-    <div class="actions">
-      <a id="ovNew" href="#" target="_blank" rel="noopener">新标签页打开</a>
-      <button id="ovClose">关闭 (Esc)</button>
-    </div>
-  </div>
-  <iframe id="ovFrame" src="" title="preview"></iframe>
-</div>
 
 <script>
   const pages = [
@@ -171,50 +135,34 @@
     { name: "Nemotron 3.5 Lightning", dir: "Nemotron3.5Lightning" }
   ];
 
-  const grid = document.getElementById("grid");
-  const overlay = document.getElementById("overlay");
-  const ovFrame = document.getElementById("ovFrame");
-  const ovTitle = document.getElementById("ovTitle");
-  const ovNew = document.getElementById("ovNew");
-
   // Change this value whenever a scene deployment needs viewers to reload its assets.
   const release = "20260923-previews";
+
+  const grid = document.getElementById("grid");
+  const frag = document.createDocumentFragment();
+
   pages.forEach(p => {
     const url = p.dir + "/index.html?v=" + release;
-    const card = document.createElement("div");
+    const preview = "docs/previews/" + p.dir.toLowerCase() + ".png";
+
+    const card = document.createElement("a");
     card.className = "card";
+    card.href = url;
+    card.target = "_blank";
+    card.rel = "noopener";
     card.innerHTML = `
       <div class="card-head">
         <div><span class="name">${p.name}</span><span class="path">${p.dir}/</span></div>
-        <a class="open-btn" href="${url}" target="_blank" rel="noopener">打开</a>
+        <span class="go" aria-hidden="true">↗</span>
       </div>
-      <div class="thumb"><iframe src="${url}" loading="lazy" scrolling="no" tabindex="-1"></iframe></div>
+      <div class="thumb">
+        <img src="${preview}" alt="${p.name} 生成的雨夜便利店场景预览" loading="lazy" decoding="async">
+      </div>
     `;
-    card.addEventListener("click", e => {
-      if (e.target.closest(".open-btn")) return;
-      openFullscreen(p, url);
-    });
-    grid.appendChild(card);
+    frag.appendChild(card);
   });
 
-  function openFullscreen(p, url) {
-    ovTitle.textContent = p.name;
-    ovNew.href = url;
-    ovFrame.src = url;
-    overlay.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
-  function closeFullscreen() {
-    overlay.classList.remove("active");
-    ovFrame.src = "";
-    document.body.style.overflow = "";
-  }
-
-  document.getElementById("ovClose").addEventListener("click", closeFullscreen);
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && overlay.classList.contains("active")) closeFullscreen();
-  });
+  grid.appendChild(frag);
 </script>
 </body>
 </html>
-
