@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>雨夜便利店 · 微缩街角</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111a28}body{font-family:system-ui,sans-serif}canvas{display:block;width:100%;height:100%;touch-action:none}
+</style>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x111a28);scene.fog=new THREE.Fog(0x111a28,19,34);
+const camera=new THREE.PerspectiveCamera(34,innerWidth/innerHeight,.1,100);camera.position.set(13,12,15);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;document.body.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xaac9e8,0x26303d,2.1));
+const moon=new THREE.DirectionalLight(0x9cbfff,2.7);moon.position.set(-8,15,8);moon.castShadow=true;moon.shadow.mapSize.set(2048,2048);scene.add(moon);
+const warm=new THREE.PointLight(0xffbd70,48,12,2);warm.position.set(-1,4,0);scene.add(warm);
+const cyan=new THREE.PointLight(0x50ddeb,19,10,2);cyan.position.set(4,3,1);scene.add(cyan);
+const root=new THREE.Group();scene.add(root);
+const mat=(color,roughness=.75,metalness=0,extra={})=>new THREE.MeshStandardMaterial({color,roughness,metalness,...extra});
+const asphalt=mat(0x263541,.32,.12),curb=mat(0x82909a,.88),cream=mat(0xe7d8b6),wall=mat(0xd7d2c4),dark=mat(0x202936),wood=mat(0x795440),metal=mat(0x596b78,.35,.65),glass=mat(0x8ed7e5,.18,.12,{transparent:true,opacity:.25}),warmGlass=mat(0xffd49a,.28,0,{emissive:0xff963c,emissiveIntensity:.4}),leaf=mat(0x34755e),red=mat(0xec5e64),yellow=mat(0xf5cb72),white=mat(0xe8edf0);
+function box(parent,x,y,z,w,h,d,m,cast=true){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=cast;o.receiveShadow=true;parent.add(o);return o}
+function cyl(parent,x,y,z,r1,r2,h,m,seg=12){const o=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,seg),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
+function line(parent,a,b,r,m){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),v=B.clone().sub(A);const o=new THREE.Mesh(new THREE.CylinderGeometry(r,r,v.length(),7),m);o.position.copy(A.add(B).multiplyScalar(.5));o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),v.normalize());o.castShadow=true;parent.add(o);return o}
+function label(parent,text,x,y,z,w,h,bg,fg,size=.2){const c=document.createElement('canvas');c.width=512;c.height=160;const q=c.getContext('2d');q.fillStyle='#'+bg.toString(16).padStart(6,'0');q.fillRect(0,0,512,160);q.fillStyle='#'+fg.toString(16).padStart(6,'0');q.font='bold 76px sans-serif';q.textAlign='center';q.textBaseline='middle';q.fillText(text,256,82);const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;const m=new THREE.MeshBasicMaterial({map:tex,transparent:true,side:THREE.DoubleSide});const o=new THREE.Mesh(new THREE.PlaneGeometry(w,h),m);o.position.set(x,y,z);parent.add(o);return o}
+
+// One square, beveled collectible plinth; the two streets meet at the shop corner.
+box(root,0,-.48,0,12,.7,12,mat(0x34434e,.58),true);box(root,0,-.1,0,11.8,.13,11.8,asphalt,false);
+// Wet street sheen and puddles
+const puddleMat=mat(0x3c7280,.12,.38,{transparent:true,opacity:.75,emissive:0x102b38,emissiveIntensity:.32});
+for(const [x,z,sx,sz] of [[2.4,3,1.8,.55],[-3.4,3.6,1.2,.42],[3.3,-1.3,1.2,.48],[-.2,4.4,.95,.3],[4.3,1.9,.7,.32]]){const p=new THREE.Mesh(new THREE.CircleGeometry(1,32),puddleMat);p.rotation.x=-Math.PI/2;p.position.set(x,-.018,z);p.scale.set(sx,sz,1);root.add(p)}
+// Street turning around shop, curb, sidewalk and painted crossing.
+box(root,0,-.005,4.65,11.5,.07,2.2,mat(0x303b44,.5),false);box(root,-4.55,.03,1.0,2.25,.13,7.2,mat(0x596169,.8),false);
+box(root,0,.06,3.43,11.65,.18,.18,curb);box(root,-3.42,.06,-.2,.18,.18,curb);
+for(let i=0;i<6;i++)box(root,-4.4+i*.43,.09,3.9,.24,.025,.7,mat(0xc8d0d0,.7),false);
+// tactile paving
+for(let i=0;i<12;i++)for(let j=0;j<3;j++)cyl(root,-2.7+i*.22,.015,2.75+j*.22,.035,.035,.018,yellow,8);
+// convenience store shell, open-front glass elevation facing the viewer
+box(root,0,1.73,-2.05,7.35,3.55,4.25,cream);box(root,0,3.58,-2.05,7.55,.24,4.4,mat(0x344550));
+// back wall interior
+box(root,0,1.65,-4.16,7.05,3.05,.12,wall,false);
+// glowing fascia and Japanese shop sign
+box(root,0,3.28,.13,7.48,.58,.28,mat(0x1d4960));box(root,0,3.3,.29,7.05,.37,.035,mat(0xfff2ca,.4,0,{emissive:0xffbe50,emissiveIntensity:.55}));
+label(root,'まちかど  •  24H',0,3.3,.315,6.6,.3,0xffe29b,0x17455b,.2);
+// broad warm storefront glazing and mullions on the front (-Z view faces camera)
+const pane=box(root,-1.72,1.77,.095,3.55,2.45,.055,warmGlass,false);pane.material.side=THREE.DoubleSide;
+const pane2=box(root,1.25,1.77,.095,2.25,2.45,.055,glass,false);pane2.material=new THREE.MeshStandardMaterial({color:0xffd7a3,roughness:.2,transparent:true,opacity:.18,emissive:0xffa447,emissiveIntensity:.32,side:THREE.DoubleSide});
+box(root,-3.15,1.77,.14,.12,2.55,.12,metal);box(root,-.04,1.77,.14,.1,2.55,.12,metal);box(root,2.43,1.77,.14,.11,2.55,.12,metal);
+// automatic sliding door and frame
+box(root,2.92,1.55,.12,.86,2.2,.09,mat(0x8ccbd1,.22,.15,{transparent:true,opacity:.38}));box(root,2.46,1.55,.18,.08,2.28,.1,metal);box(root,3.39,1.55,.18,.08,2.28,.1,metal);
+const doorA=box(root,2.7,1.55,.23,.39,2.15,.035,mat(0xffd79f,.15,0,{transparent:true,opacity:.28,emissive:0xffa040,emissiveIntensity:.18}));
+box(root,0,3.0,.16,7.2,.11,.18,white); // canopy lip
+// interior tiled floor and luminous ceiling
+box(root,0,.28,-1.98,7.05,.08,4.05,mat(0xd1c9b8,.72),false);
+for(let i=0;i<5;i++)box(root,-2.7+i*1.35,.33,-1.8,1.25,.012,3.5,mat(i%2?0xe7dfd1:0xd9d2c4),false);
+box(root,0,2.98,-1.9,6.7,.12,3.65,mat(0xffecc6,.4,0,{emissive:0xffcb7a,emissiveIntensity:.6}),false);
+// shelving units packed with colorful tiny goods
+const productM=[0xe85d62,0xf2c14e,0x63b5a3,0x5a83bb,0xf0eee0,0xc47b52].map(c=>mat(c,.45));
+for(let row=0;row<3;row++){
+ const z=-3.35+row*.93;
+ if(row<2){box(root,-.95,.95,z,1.65,1.27,.62,wood);for(let s=0;s<4;s++)box(root,-.95,.58+s*.29,z+.33,1.53,.045,.08,metal);
+ for(let s=0;s<4;s++)for(let k=0;k<6;k++)box(root,-1.62+k*.26,.72+s*.29,z+.1,.17,.2,.22,productM[(k+s+row)%productM.length],false);
+ } else { // refrigerated drink wall
+ box(root,-2.8,1.53,z,1.12,2.35,.66,mat(0x42636b,.25,.2));for(let s=0;s<5;s++)box(root,-2.8,.58+s*.39,z+.36,1.0,.035,.05,white,false);
+ for(let s=0;s<5;s++)for(let k=0;k<4;k++)cyl(root,-3.18+k*.25,.76+s*.39,z+.24,.075,.075,.22,productM[(k+s)%productM.length],8);
+ }
+}
+// checkout counter, coffee and oden case
+box(root,1.48,.78,-2.75,1.55,.85,.72,mat(0x80604a));box(root,1.48,1.24,-2.75,1.58,.1,.75,wood);box(root,1.38,1.43,-2.37,.86,.34,.32,mat(0x332b29));
+box(root,2.12,.76,-3.55,.92,.75,.66,mat(0xe8d8b4));box(root,2.12,1.2,-3.55,.98,.12,.72,warmGlass);for(let i=0;i<4;i++)cyl(root,1.82+i*.2,.96,-3.55,.075,.075,.24,yellow,10);
+cyl(root,.68,1.02,-2.49,.15,.12,.48,mat(0x29363d));cyl(root,.68,1.28,-2.49,.18,.18,.06,mat(0xd7a45e));
+// magazine rack, back door and posters
+box(root,3.12,1.2,-4.03,.75,1.8,.1,mat(0x54717d));for(let i=0;i<3;i++)box(root,3.12,.7+i*.4,-3.95,.64,.31,.03,productM[i+1],false);
+label(root,'新商品',-3.42,2.48,.18,.72,.42,0xffefc8,0xc54f45);
+label(root,'あたたかい',-.55,2.44,.18,1.1,.4,0xffedbf,0xb54f3f);
+box(root,3.35,1.35,-4.04,.5,2.0,.12,mat(0x627179));label(root,'STAFF',3.35,1.68,-3.96,.42,.22,0xe6dec8,0x344650);
+// Door mat and canopy awning
+box(root,2.94,.035,.65,1.45,.07,.78,mat(0x343b42));for(let i=0;i<5;i++)box(root,2.42+i*.25,.075,.65,.025,.015,.68,mat(0x829096),false);
+box(root,0,3.02,.65,7.5,.14,.95,mat(0x293c4c));
+for(let i=0;i<9;i++){const stripe=box(root,-3.65+i*.91,3.02,.67,.45,.145,.94,mat(i%2?0x4fc5d6:0xe9debc));}
+// side alley entrance, alley wall, drain and grates
+box(root,-4.85,1.55,-2.3,1.65,3.2,.18,mat(0x46535e));box(root,-5.56,1.35,-.8,.12,2.7,2.85,mat(0x414c56));
+box(root,-4.15,.1,1.55,.12,.22,3.6,metal);for(let i=0;i<9;i++)box(root,-4.15,.22,.0+i*.35,.14,.025,.05,white);
+// vending machine with glowing selection buttons
+box(root,4.25,1.2,1.55,1.05,2.3,.75,mat(0x263e53,.3,.3));box(root,4.25,1.5,1.16,.86,1.2,.08,mat(0x8ddce5,.15,.12,{emissive:0x1b5368,emissiveIntensity:.4}));
+for(let i=0;i<3;i++)for(let j=0;j<3;j++){cyl(root,3.95+j*.28,1.85-i*.35,1.08,.075,.075,.14,productM[(i+j)%productM.length],9)}
+for(let i=0;i<3;i++)box(root,3.98+i*.27,.82,1.08,.19,.25,.045,productM[i],false);
+// bicycle silhouette beside shop
+const tire=mat(0x202a34,.4,.35);function wheel(x,z){const o=new THREE.Mesh(new THREE.TorusGeometry(.39,.045,8,24),tire);o.rotation.y=Math.PI/2;o.position.set(x,.43,z);root.add(o);for(let i=0;i<8;i++){const a=i*Math.PI/4;line(root,[x-.025,.43+Math.sin(a)*.34,z+Math.cos(a)*.34],[x+.025,.43-Math.sin(a)*.34,z-Math.cos(a)*.34],.009,metal)}}
+wheel(2.95,2.22);wheel(4.02,2.22);line(root,[2.95,.43,2.22],[3.35,.92,2.22],.035,mat(0xb94f56));line(root,[3.35,.92,2.22],[4.02,.43,2.22],.035,mat(0xb94f56));line(root,[2.95,.43,2.22],[3.56,.43,2.22],.035,mat(0xb94f56));line(root,[3.56,.43,2.22],[3.35,.92,2.22],.035,mat(0xb94f56));line(root,[3.35,.92,2.22],[3.83,.95,2.22],.03,metal);line(root,[3.83,.95,2.22],[4.02,.43,2.22],.03,mat(0xb94f56));line(root,[3.23,1.02,2.22],[3.48,1.02,2.22],.04,metal);
+// umbrella stand, umbrellas and bin
+cyl(root,1.62,.32,1.28,.36,.27,.55,metal,16);for(let i=0;i<5;i++){const a=i*1.2;line(root,[1.62,.48,1.28],[1.62+Math.cos(a)*.24,1.2,1.28+Math.sin(a)*.24],.035,mat([0x66aab7,0xd35c64,0xe9bd69,0x7696c8,0xded7c3][i]));cyl(root,1.62+Math.cos(a)*.24,1.21,1.28+Math.sin(a)*.24,.15,.02,.12,mat([0x66aab7,0xd35c64,0xe9bd69,0x7696c8,0xded7c3][i]),12)}
+box(root,1.12,.36,2.15,.56,.66,.56,mat(0x38545b));box(root,1.12,.72,2.15,.58,.08,.58,metal);
+// guardrail and parking marker
+for(let i=0;i<5;i++){cyl(root,-2.95+i*.48,.39,2.25,.055,.055,.7,metal,8)}line(root,[-3,.62,2.25],[-1.05,.62,2.25],.045,metal);
+// lamppost with warm pool
+cyl(root,-3.15,1.75,3.0,.075,.11,3.5,metal,10);line(root,[-3.15,3.42,3],[-2.65,3.42,3],.055,metal);box(root,-2.48,3.35,3,.48,.18,.34,mat(0xffd18a,.3,0,{emissive:0xffad50,emissiveIntensity:1.2}));const lamp=new THREE.PointLight(0xffbd73,18,6,2);lamp.position.set(-2.48,3.1,3);scene.add(lamp);
+// corner pole, signs, signal head, bundled cables
+cyl(root,-5.12,2.5,3.7,.11,.13,5,mat(0x454b51),10);box(root,-5.12,3.85,3.7,.72,.5,.38,mat(0x292f36));
+for(let i=0;i<3;i++)cyl(root,-5.12,3.98-i*.16,3.49,.075,.075,.06,mat([0xd74d50,0xe7bc58,0x5dbb7b][i],.35,0,{emissive:[0x661111,0x604400,0x114422][i],emissiveIntensity:.55}),12);
+label(root,'駅前',-5.12,3.0,3.62,.58,.32,0xf2e8cf,0x33495a);label(root,'路地',-5.12,2.58,3.62,.58,.32,0x34536a,0xe9e2cf);
+for(let i=0;i<4;i++)line(root,[-7,5.5-i*.14,-1],[-4.5,4.8-i*.11,4.5],.018,mat(0x252f38));
+// air conditioner and outdoor compressor on side wall
+box(root,-3.45,1.25,-2.9,.72,.56,.68,mat(0xc0c3be));for(let i=0;i<5;i++)box(root,-3.45,.12+i*.05,-2.54,.55,.025,.025,metal,false);const fan=new THREE.Mesh(new THREE.TorusGeometry(.18,.025,6,18),metal);fan.position.set(-3.45,1.3,-2.53);fan.rotation.x=Math.PI/2;root.add(fan);
+// alley potted plants
+for(const [x,z] of [[-3.6,-.15],[-4.95,-1.2],[4.7,.2]]){cyl(root,x,.2,z,.26,.32,.35,mat(0x795846),12);for(let i=0;i<6;i++){const a=i*1.05;line(root,[x,.32,z],[x+Math.cos(a)*.23,.75+(i%3)*.12,z+Math.sin(a)*.23],.055,leaf)}}
+// subtle sketch-like graphic edge accents around architecture
+// rain streak particles
+const rainN=720,positions=new Float32Array(rainN*3),vel=new Float32Array(rainN);for(let i=0;i<rainN;i++){positions[i*3]=(Math.random()-.5)*18;positions[i*3+1]=Math.random()*11;positions[i*3+2]=(Math.random()-.5)*18;vel[i]=.12+Math.random()*.15}
+const rainGeo=new THREE.BufferGeometry();rainGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));const rain=new THREE.Points(rainGeo,new THREE.PointsMaterial({color:0xb6d8ee,size:.045,transparent:true,opacity:.58,depthWrite:false}));scene.add(rain);
+// animated puddle rings
+const rings=[];for(let i=0;i<9;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(.15,.012,5,32),new THREE.MeshBasicMaterial({color:0x91dce2,transparent:true,opacity:.42}));r.rotation.x=Math.PI/2;r.position.set(-4.6+Math.random()*9,-.004,-3.5+Math.random()*7);root.add(r);rings.push(r)}
+// roof runoff drops at the awning edge
+const drops=[];for(let i=0;i<18;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(.035,7,7),new THREE.MeshBasicMaterial({color:0x9de8ef,transparent:true,opacity:.65}));d.position.set(-3.4+Math.random()*6.8,2.8,.97);root.add(d);drops.push(d)}
+// subtle hand-placed highlights on puddles; the overall scene stays calm and miniature.
+let yaw=.68,pitch=.57,dist=20,drag=false,px=0,py=0;const target=new THREE.Vector3(0,1.2,0);
+function placeCamera(){pitch=Math.max(.18,Math.min(1.25,pitch));camera.position.set(target.x+dist*Math.sin(yaw)*Math.cos(pitch),target.y+dist*Math.sin(pitch),target.z+dist*Math.cos(yaw)*Math.cos(pitch));camera.lookAt(target)}placeCamera();
+renderer.domElement.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
+renderer.domElement.addEventListener('pointermove',e=>{if(!drag)return;yaw-=(e.clientX-px)*.008;pitch+=(e.clientY-py)*.006;px=e.clientX;py=e.clientY;placeCamera()});
+renderer.domElement.addEventListener('pointerup',()=>drag=false);renderer.domElement.addEventListener('pointercancel',()=>drag=false);
+renderer.domElement.addEventListener('wheel',e=>{dist=Math.max(12,Math.min(31,dist+e.deltaY*.012));placeCamera()},{passive:true});
+let t=0;function animate(){requestAnimationFrame(animate);t+=.016;
+ const a=rainGeo.attributes.position.array;for(let i=0;i<rainN;i++){a[i*3]+=.012;a[i*3+1]-=vel[i];if(a[i*3+1]<0){a[i*3+1]=9+Math.random()*2;a[i*3]=(Math.random()-.5)*18;a[i*3+2]=(Math.random()-.5)*18}}rainGeo.attributes.position.needsUpdate=true;
+ rings.forEach((r,i)=>{const p=(t*.42+i*.137)%1;r.scale.setScalar(.35+p*2.1);r.material.opacity=(1-p)*.38});
+ drops.forEach((d,i)=>{const q=(t*.85+i*.17)%1;d.position.y=2.82-q*2.7;d.visible=q<.97});
+ const doorOpen=(Math.sin(t*.27+1.4)> .985);doorA.position.x=doorOpen?2.52:2.7;
+ warm.intensity=45+Math.sin(t*.8)*1.6;cyan.intensity=18+Math.sin(t*.38+2)*1.2;
+ renderer.render(scene,camera)}animate();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2))});
+</script>
+</body>
+</html>

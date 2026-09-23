@@ -5,6 +5,7 @@ node_modules/
 # Local visual-regression captures
 preview.png
 preview-rotated.png
+preview-mobile.png
 
 # One-off local browser verification script
 verify.cjs

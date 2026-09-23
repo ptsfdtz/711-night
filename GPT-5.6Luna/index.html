@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>雨夜便利店街角</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #07101d; }
+    body { font-family: system-ui, sans-serif; }
+    canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  </style>
+</head>
+<body>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#07111f');
+scene.fog = new THREE.Fog('#07111f', 25, 45);
+
+const camera = new THREE.PerspectiveCamera(33, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(15, 13, 17);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.8, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.065;
+controls.minDistance = 12;
+controls.maxDistance = 30;
+controls.maxPolarAngle = Math.PI * 0.48;
+controls.minPolarAngle = Math.PI * 0.18;
+
+const colors = {
+  ink: 0x17263b, base: 0x283b54, road: 0x33495c, roadDark: 0x203247,
+  cream: 0xf4e7c5, warm: 0xffc56f, cyan: 0x6cdce1, pink: 0xf39ab7,
+  green: 0x65bca3, red: 0xf36b72, yellow: 0xffde73, white: 0xe6f5f1
+};
+const toon = (color, extra = {}) => new THREE.MeshToonMaterial({ color, ...extra });
+const outline = (mesh, color = 0x101b2a, opacity = 0.78) => {
+  const edges = new THREE.EdgesGeometry(mesh.geometry, 25);
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
+  line.position.copy(mesh.position); line.rotation.copy(mesh.rotation); line.scale.copy(mesh.scale);
+  mesh.parent?.add(line); return line;
+};
+const box = (name, size, pos, material, parent = scene, edged = true) => {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
+  mesh.name = name; mesh.position.set(...pos); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh);
+  if (edged) outline(mesh); return mesh;
+};
+const cyl = (name, radius, height, pos, material, parent = scene, segments = 12) => {
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, height, segments), material);
+  mesh.name = name; mesh.position.set(...pos); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); outline(mesh); return mesh;
+};
+const glow = (color, intensity, distance, pos, parent = scene) => {
+  const light = new THREE.PointLight(color, intensity, distance, 2); light.position.set(...pos); light.castShadow = true; parent.add(light); return light;
+};
+const text = (str, pos, size, color, rotation = [-Math.PI / 2, 0, 0], parent = scene) => {
+  const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 128;
+  const ctx = canvas.getContext('2d'); ctx.fillStyle = '#' + color.toString(16).padStart(6, '0'); ctx.font = '700 62px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(str, 256, 64);
+  const tex = new THREE.CanvasTexture(canvas); tex.colorSpace = THREE.SRGBColorSpace;
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(size, size * 0.25), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
+  plane.position.set(...pos); plane.rotation.set(...rotation); parent.add(plane); return plane;
+};
+
+// World lighting and square collectible plinth
+scene.add(new THREE.HemisphereLight(0x8da0c4, 0x111a2c, 1.7));
+const key = new THREE.DirectionalLight(0x93b8db, 2.2); key.position.set(-8, 18, 10); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); scene.add(key);
+box('square plinth', [24, 1.1, 24], [0, -0.55, 0], toon(colors.base));
+box('top surface', [22.8, 0.18, 22.8], [0, 0.05, 0], toon(0x182b40));
+
+// Roads, corner turn, gutter and reflective zebra crossing
+box('main wet road', [22.3, 0.12, 8.1], [0, 0.17, 5.8], toon(colors.roadDark));
+box('turning road', [7.3, 0.12, 13.2], [7.45, 0.18, -0.7], toon(colors.road));
+box('sidewalk', [22.3, 0.35, 3.6], [0, 0.38, 0.4], toon(0x8b8d91));
+box('corner sidewalk', [3.7, 0.35, 13.2], [8.7, 0.38, -0.7], toon(0x777e89));
+box('gutter', [22.2, 0.13, 0.42], [0, 0.25, 1.95], toon(0x101e2c));
+box('gutter turn', [0.42, 0.13, 11.7], [7.1, 0.26, -0.7], toon(0x101e2c));
+for (let i = 0; i < 7; i++) box('zebra stripe', [0.55, 0.035, 3], [-4.2 + i * 1.15, 0.29, 5.6], toon(0xbac5c7));
+for (let i = 0; i < 6; i++) box('side zebra', [2.7, 0.035, 0.5], [7.45, 0.3, -4 + i * 1.2], toon(0xd9d6ca));
+// puddles as glossy flattened disks
+const puddles = [];
+for (const [x, z, sx, sz] of [[-5, 4.1, 2.6, .7], [3.8, 7.2, 3.3, .75], [8, 2.1, 1.5, .5], [-8, 7.4, 1.7, .55]]) {
+  const p = new THREE.Mesh(new THREE.CircleGeometry(1, 32), new THREE.MeshBasicMaterial({ color: 0x4a9ab2, transparent: true, opacity: .18 }));
+  p.rotation.x = -Math.PI / 2; p.position.set(x, .29, z); p.scale.set(sx, sz, 1); scene.add(p); puddles.push(p);
+}
+
+// Store shell and warm interior, deliberately open on the front/right for a clear cutaway view
+const store = new THREE.Group(); store.position.set(-1.5, 0, -2.8); scene.add(store);
+box('store floor', [10.6, .25, 7.5], [0, .55, 0], toon(0xe7dcc7), store);
+box('back wall', [10.6, 5.4, .3], [0, 3.2, -3.6], toon(0xdbe3d8), store);
+box('left wall', [.3, 5.4, 7.5], [-5.15, 3.2, 0], toon(0xb8d2d0), store);
+box('roof', [11.6, .45, 8.3], [0, 6.1, 0], toon(0x26384a), store);
+box('awning', [11.8, .55, 1.45], [0, 5.4, 4.35], toon(0x26384a), store);
+for (let i = 0; i < 8; i++) box('awning stripe', [1.35, .06, 1.48], [-4.7 + i * 1.35, 5.7, 4.36], toon(i % 2 ? colors.cyan : colors.cream), store);
+
+// Signage, windows and automatic door
+box('sign lightbox', [10.2, 1.15, .35], [0, 5.05, 4.05], toon(colors.cyan, { emissive: colors.cyan, emissiveIntensity: 0.7 }), store);
+text('ゆめ MART', [0, 5.07, 4.25], 4.4, 0x16324a, [0, 0, 0], store);
+const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xa6e7eb, transparent: true, opacity: .2, roughness: .12, metalness: .1, transmission: .1 });
+box('front glass left', [4.3, 4.2, .12], [-3.05, 3.05, 3.75], glassMat, store, false);
+box('front glass right', [4.3, 4.2, .12], [2.15, 3.05, 3.75], glassMat, store, false);
+box('door frame left', [.16, 4.25, .25], [-.2, 3.05, 3.7], toon(0x253b4b), store);
+box('door frame right', [.16, 4.25, .25], [.95, 3.05, 3.7], toon(0x253b4b), store);
+const door = box('automatic glass door', [.7, 3.8, .07], [.38, 2.95, 3.62], new THREE.MeshPhysicalMaterial({ color: 0xb9f5ed, transparent: true, opacity: .28, roughness: .1 }), store, false);
+box('door mat', [2.3, .08, .9], [.4, .68, 4.25], toon(0x344657), store);
+
+// Full, legible store interior
+const shelfMat = toon(0xa6b4ad), dark = toon(0x304252), productMats = [toon(colors.yellow), toon(colors.pink), toon(colors.green), toon(colors.cyan)];
+for (const z of [-2.45, -.85, .75]) {
+  box('aisle rack', [3.9, 2.8, .3], [-.9, 2.0, z], shelfMat, store);
+  for (let y = 1.15; y < 3.35; y += .68) box('shelf', [3.9, .11, .75], [-.9, y, z + .22], dark, store);
+  for (let x = -2.5; x < .75; x += .52) for (let y = 1.35; y < 3.15; y += .66) box('product', [.3, .42, .28], [x, y, z + .42], productMats[Math.floor((x * 10 + y * 10) % 4 + 4) % 4], store, false);
+}
+// Drinks chiller, bento case, counter and recognizable hot food unit
+box('drink refrigerator', [1.45, 3.3, 1.05], [3.45, 2.2, -2.35], toon(0x709f9b), store);
+box('chiller glass', [1.2, 1.9, .04], [3.45, 2.8, -1.78], glassMat, store, false);
+for (let y = 1.1; y < 3.6; y += .62) for (let x = 3.05; x < 3.9; x += .4) cyl('bottle', .11, .38, [x, y, -1.78], productMats[Math.floor(y * 3 + x * 4) % 4], store, 8).rotation.z = Math.PI / 2;
+box('bento island', [1.5, 1.25, 1.15], [3.35, 1.25, .1], toon(0xf1d3a5), store);
+for (let i = 0; i < 4; i++) box('bento tray', [.3, .12, .45], [2.8 + i * .35, 1.98, .1], toon(i % 2 ? colors.red : colors.green), store, false);
+box('register counter', [2.5, 1.25, .85], [2.8, 1.2, 2.25], toon(0x7c6f68), store);
+box('register', [.45, .35, .38], [2.75, 2.0, 2.25], toon(0x1e2e3e), store);
+box('coffee machine', [.7, 1.1, .6], [1.65, 1.9, 2.2], toon(0x71838c), store);
+box('oden counter', [1.15, 1.1, .7], [.3, 1.25, 2.3], toon(colors.warm), store);
+for (let i = 0; i < 4; i++) cyl('oden pot', .13, .1, [-.05 + i * .25, 1.88, 2.3], toon(colors.cream), store, 10);
+box('magazine rack', [1.2, 2.0, .48], [-3.75, 1.65, 2.55], toon(0x63848a), store);
+for (let i = 0; i < 5; i++) box('magazine', [.16, .75, .05], [-4.15 + (i % 3) * .27, 1.45 + Math.floor(i / 3) * .58, 2.28], productMats[i % 4], store, false);
+for (let x = -3.5; x < 4; x += 2) box('warm ceiling panel', [1.4, .08, .7], [x, 5.55, 1], toon(colors.warm, { emissive: colors.warm, emissiveIntensity: 1 }), store);
+glow(0xffc16d, 5, 14, [0, 5.0, 1.8], store);
+text('咖啡 便当 饭团', [0, .72, 3.35], 4.7, 0x546768, [-Math.PI / 2, 0, 0], store);
+
+// Street furniture: vending machine, bicycle, umbrella stand, bin, guard rail and bulletin board
+box('vending machine', [1.2, 3.1, .75], [5.5, 1.95, 3.0], toon(0x3b6a83));
+box('vending glow', [.9, 1.3, .04], [5.5, 2.5, 2.6], toon(colors.cyan, { emissive: colors.cyan, emissiveIntensity: .8 }));
+for (let i = 0; i < 4; i++) cyl('can', .1, .22, [5.18 + (i % 2) * .28, 2.2 - Math.floor(i / 2) * .32, 2.55], productMats[i], scene, 8).rotation.z = Math.PI / 2;
+const bike = new THREE.Group(); bike.position.set(-5.2, .8, 2.35); scene.add(bike);
+for (const x of [-.65, .65]) { const w = new THREE.Mesh(new THREE.TorusGeometry(.55, .075, 8, 16), toon(0x9cd0cf)); w.rotation.y = Math.PI / 2; w.position.x = x; bike.add(w); }
+const frame = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.65,0,0),new THREE.Vector3(0,.9,0),new THREE.Vector3(.65,0,0),new THREE.Vector3(-.65,0,0),new THREE.Vector3(.2,.35,0),new THREE.Vector3(0,.9,0)]), new THREE.LineBasicMaterial({color:0xf5b96a})); bike.add(frame);
+box('umbrella stand', [.65, 1.25, .65], [-4.35, 1.0, 3.7], toon(0x8a687b)); for (let i = 0; i < 4; i++) box('umbrella', [.06, 1.25, .06], [-4.55 + i * .13, 1.65, 3.7], toon(i % 2 ? colors.cyan : colors.pink), scene, false);
+box('trash bin', [.75, 1.15, .65], [5.2, .95, .8], toon(0x4f6970));
+box('bulletin board', [1.8, 1.8, .22], [5.65, 1.7, .2], toon(0x7d655a)); for (let i = 0; i < 4; i++) box('poster', [.32, .38, .03], [5.1 + (i % 2) * .55, 1.55 + Math.floor(i / 2) * .55, .05], toon(i % 2 ? colors.yellow : colors.pink), scene, false);
+// lamp and poles
+for (const x of [6.8, -8.8]) { cyl('street pole', .1, 6, [x, 3.2, 5.1], toon(0x263c51), scene, 8); box('lamp head', [1.1, .18, .35], [x, 6.18, 5.1], toon(colors.warm, { emissive: colors.warm, emissiveIntensity: .9 })); glow(0xffc35e, 2.4, 8, [x, 6, 5.1]); }
+for (let i = 0; i < 5; i++) { const post = cyl('guard rail post', .06, 1.2, [4.9 + i * .6, .9, 5.05], toon(0xa8bbc1), scene, 8); if (i < 4) box('guard rail', [.65, .08, .08], [5.2 + i * .6, 1.25, 5.05], toon(0xa8bbc1)); }
+// Utility pole, wires, road sign
+cyl('utility pole', .13, 7.2, [-7.7, 3.65, -1.2], toon(0x2b4051), scene, 8);
+for (let y = 6.3; y > 5.3; y -= .45) { const wire = new THREE.CatmullRomCurve3([new THREE.Vector3(-7.7,y,-1.2),new THREE.Vector3(-2,y-.35,-1.2),new THREE.Vector3(4,y-.1,-1.2)]); scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(wire.getPoints(20)), new THREE.LineBasicMaterial({color:0x182738}))); }
+cyl('sign pole', .07, 2.2, [4.5, 1.4, -3.9], toon(0x394e5e), scene, 8); box('street sign', [1.6, .5, .1], [4.5, 2.45, -3.9], toon(colors.cyan)); text('雨町 3', [4.5, 2.46, -3.85], 1.3, 0x16324a, [0,0,0]);
+box('air conditioner', [1.5, 1.15, .55], [-5.2, 2.5, -6.4], toon(0x91b2b1));
+
+// Rain, drops from awning, ripples and moving glass streaks
+const rainCount = 850, rainPos = new Float32Array(rainCount * 3), rainVel = [];
+for (let i = 0; i < rainCount; i++) { rainPos[i*3] = THREE.MathUtils.randFloat(-12, 12); rainPos[i*3+1] = THREE.MathUtils.randFloat(.4, 17); rainPos[i*3+2] = THREE.MathUtils.randFloat(-10, 11); rainVel.push(THREE.MathUtils.randFloat(.2, .48)); }
+const rainGeo = new THREE.BufferGeometry(); rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x9fcfe0, size: .055, transparent: true, opacity: .65 })); scene.add(rain);
+const drip = []; for (let i = 0; i < 9; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(.07, 8, 8), new THREE.MeshBasicMaterial({ color: 0x9edce4, transparent: true, opacity: .82 })); d.position.set(-5.2 + i*1.3, 5.35, 4.9); scene.add(d); drip.push(d); }
+const ripple = []; for (let i = 0; i < 12; i++) { const r = new THREE.Mesh(new THREE.RingGeometry(.08, .13, 20), new THREE.MeshBasicMaterial({ color: 0x88ceda, transparent: true, opacity: 0, side: THREE.DoubleSide })); r.rotation.x = -Math.PI/2; r.position.set(THREE.MathUtils.randFloat(-9,9), .34, THREE.MathUtils.randFloat(3,9)); scene.add(r); ripple.push({ mesh:r, age:Math.random() * 2 }); }
+const streaks = []; for (let i = 0; i < 14; i++) { const s = new THREE.Mesh(new THREE.PlaneGeometry(.025, THREE.MathUtils.randFloat(.5,1.5)), new THREE.MeshBasicMaterial({color:0xc4f5f2,transparent:true,opacity:.25})); s.position.set(THREE.MathUtils.randFloat(-4.8,3.8), THREE.MathUtils.randFloat(1.3,4.9), 3.69); scene.add(s); streaks.push(s); }
+
+const clock = new THREE.Clock(); let lastDoor = 0;
+function animate() {
+  requestAnimationFrame(animate); const t = clock.getElapsedTime();
+  const pos = rain.geometry.attributes.position.array;
+  for (let i = 0; i < rainCount; i++) { pos[i*3+1] -= rainVel[i]; pos[i*3] += rainVel[i] * .16; if (pos[i*3+1] < .3) { pos[i*3+1] = 16 + Math.random()*2; pos[i*3] = THREE.MathUtils.randFloat(-12,12); } }
+  rain.geometry.attributes.position.needsUpdate = true;
+  drip.forEach((d, i) => { d.position.y = 5.3 - ((t * (1.4 + i*.08)) % 4.7); if (d.position.y < .65) d.position.y = 5.3; });
+  ripple.forEach((r, i) => { r.age += .018; if (r.age > 2.3) { r.age = 0; r.mesh.position.x = THREE.MathUtils.randFloat(-9,9); r.mesh.position.z = THREE.MathUtils.randFloat(3,9); } const k = r.age / 2.3; r.mesh.scale.setScalar(.2 + k * 1.35); r.mesh.material.opacity = Math.sin(k * Math.PI) * .35; });
+  streaks.forEach((s, i) => { s.position.y -= .006 + i % 3 * .002; if (s.position.y < 1) { s.position.y = 4.9; s.position.x = THREE.MathUtils.randFloat(-4.8,3.8); } });
+  const flicker = .92 + Math.sin(t * 2.1) * .025 + Math.sin(t * 7.7) * .012; store.children.forEach(o => { if (o.name === 'sign lightbox') o.material.emissiveIntensity = flicker; });
+  const open = (Math.sin(t * .48) > .82) || (t - lastDoor < .8); if (open && t - lastDoor > 4) lastDoor = t; door.position.x = .38 + (open ? Math.sin(Math.min(1, (t-lastDoor)/.8)*Math.PI/2)*.65 : 0);
+  controls.update(); renderer.render(scene, camera);
+}
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+animate();
+</script>
+</body>
+</html>

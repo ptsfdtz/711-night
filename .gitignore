@@ -1,11 +1,21 @@
-# Dependencies and local browser downloads in any project folder
+# Dependencies and locally downloaded browser binaries (never needed to render a scene)
 node_modules/
 .browsers/
 
-# Local screenshots and browser-verification artifacts
-preview.png
-preview-rotated.png
+# Per-scene dev tooling and local capture artifacts
+# Official previews live in docs/previews/, so local screenshots are not uploaded.
+package-lock.json
 verify.cjs
+/*/package.json
+preview*.png
+/*/preview*.png
+
+# Incomplete / non-renderable model dumps, excluded until they can be finished
+GLM-5.1/
+Qwen3.8Flash/
+Qwen3.8Max/
+Grok4.7/
+KimiK3/
 
 # Editor and operating-system files
 .DS_Store

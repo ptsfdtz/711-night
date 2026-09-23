@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>雨の街角 · Rainy Konbini</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101624}canvas{display:block;touch-action:none}</style><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script></head><body><script type="module">
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>雨の街角 · Rainy Konbini</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101624}canvas{display:block;touch-action:none}</style><script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.js","three/addons/":"./vendor/three/examples/jsm/"}}</script></head><body><script type="module">
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
@@ -7,16 +7,19 @@ import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
 import {ShaderPass} from 'three/addons/postprocessing/ShaderPass.js';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {Reflector} from 'three/addons/objects/Reflector.js';
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const scene=new THREE.Scene();scene.background=new THREE.Color('#101b2b');scene.fog=new THREE.FogExp2('#101b2b',.009);
-const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.94;document.body.appendChild(renderer.domElement);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.info.autoReset=false;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.94;document.body.appendChild(renderer.domElement);
 const camera=new THREE.PerspectiveCamera(36,innerWidth/innerHeight,.1,100);camera.position.set(-10.8,8.7,20);const controls=new OrbitControls(camera,renderer.domElement);controls.target.set(0,1.4,0);controls.enableDamping=true;controls.minDistance=9;controls.maxDistance=30;controls.maxPolarAngle=Math.PI*.475;controls.minPolarAngle=.18;
 scene.add(new THREE.HemisphereLight('#829ccc','#263346',.72));const moon=new THREE.DirectionalLight('#9ebdff',1.15);moon.position.set(-7,15,7);moon.castShadow=true;moon.shadow.mapSize.set(2048,2048);Object.assign(moon.shadow.camera,{left:-10,right:10,top:10,bottom:-10});moon.shadow.normalBias=.025;scene.add(moon);
 const palette={road:'#293b4e',base:'#233046',curb:'#657982',wall:'#c7d1c4',dark:'#263743',metal:'#546978',cream:'#eee5bc',red:'#d85854',green:'#42a997'};
 const ramp=new THREE.DataTexture(new Uint8Array([75,75,75,255,140,140,140,255,205,205,205,255,255,255,255,255]),4,1);ramp.needsUpdate=true;ramp.minFilter=ramp.magFilter=THREE.NearestFilter;
 function mat(c,emit=0){return new THREE.MeshToonMaterial({color:c,gradientMap:ramp,emissive:c,emissiveIntensity:emit});}
+const edgeMaterial=new THREE.LineBasicMaterial({color:'#142432',transparent:true,opacity:.24});
 const mats={};function material(c){return mats[c]??=mat(c);}
-function box(w,h,d,x,y,z,c,edge=true,parent=scene){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),typeof c==='string'?material(c):c);mesh.position.set(x,y,z);mesh.castShadow=!mesh.material.transparent;mesh.receiveShadow=true;parent.add(mesh);if(edge){const lines=new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry),new THREE.LineBasicMaterial({color:'#142432',transparent:true,opacity:.28}));mesh.add(lines);}return mesh;}
+function box(w,h,d,x,y,z,c,edge=true,parent=scene){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),typeof c==='string'?material(c):c);mesh.position.set(x,y,z);mesh.castShadow=!mesh.material.transparent;mesh.receiveShadow=true;parent.add(mesh);if(edge){const lines=new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry),edgeMaterial);mesh.add(lines);}return mesh;}
 function cyl(r,h,x,y,z,c,r2=r){const m=new THREE.Mesh(new THREE.CylinderGeometry(r2,r,h,12),material(c));m.position.set(x,y,z);m.castShadow=true;scene.add(m);return m;}
 function line(points,color='#263845',radius=.025){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));const m=new THREE.Mesh(new THREE.TubeGeometry(curve,32,radius,6,false),material(color));scene.add(m);return m;}
 function label(text,w,h,x,y,z,bg='#eee8cf',fg='#253d46',size=70){const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=Math.round(1024*h/w);const ctx=canvas.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=fg;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`bold ${size*canvas.width/1024}px "Arial", "Yu Gothic", sans-serif`;ctx.fillText(text,512,canvas.height/2,970);const tex=new THREE.CanvasTexture(canvas);tex.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex}));m.position.set(x,y,z);scene.add(m);return m;}
@@ -108,7 +111,24 @@ const waterShader={uniforms:{color:{value:new THREE.Color('#203442')},tDiffuse:{
 vertexShader:`uniform mat4 textureMatrix;varying vec4 vUv;varying vec2 local;void main(){local=position.xy;vUv=textureMatrix*vec4(position,1.);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
 fragmentShader:`uniform sampler2D tDiffuse;uniform vec3 color;uniform float time;varying vec4 vUv;varying vec2 local;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-void main(){vec2 uv=vUv.xy/vUv.w;vec2 p=local;float wave=sin(p.y*73.+time*2.4)*sin(p.x*22.-time)*.00065;uv+=vec2(wave,sin(p.y*43.+time*1.6)*.00035);vec3 reflected=texture2D(tDiffuse,uv).rgb;float pool=smoothstep(-.7,.8,sin(p.x*1.65+sin(p.y*2.1))*.48+cos(p.y*1.75)*.5);float streak=.84+.16*sin(p.y*125.+sin(p.x*25.)*2.);float grain=hash(p*700.)*.006;gl_FragColor=vec4(mix(color*.52,reflected, (.16+pool*.44)*streak)+grain,1.);}`};
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+1.),f.x),f.y);}
+void main(){
+ vec2 uv=vUv.xy/vUv.w,p=local;
+ vec2 cell=floor(p*1.6),q=fract(p*1.6)-.5;
+ float phase=fract(time*.62+hash(cell)),r=length(q);
+ float ripple=sin((r-phase*.85)*58.)*exp(-abs(r-phase*.65)*24.)*(1.-phase);
+ float wave=sin(p.y*57.+time*2.4)*sin(p.x*19.-time);
+ uv+=vec2(wave*.00048,cos(p.y*39.+time)*.00028)+normalize(q+vec2(.001))*ripple*.00065;
+ vec2 blur=vec2(.0012,.00065);
+ vec3 reflected=texture2D(tDiffuse,uv).rgb*.4;
+ reflected+=(texture2D(tDiffuse,uv+blur).rgb+texture2D(tDiffuse,uv-blur).rgb)*.2;
+ reflected+=(texture2D(tDiffuse,uv+vec2(blur.x,-blur.y)).rgb+texture2D(tDiffuse,uv+vec2(-blur.x,blur.y)).rgb)*.1;
+ float pool=smoothstep(.31,.72,noise(p*.85)+noise(p*2.4)*.16);
+ float grain=hash(p*950.);
+ vec3 asphalt=color*(.34+grain*.16);
+ float streak=.93+.07*sin(p.y*105.+sin(p.x*19.));
+ gl_FragColor=vec4(mix(asphalt,reflected,(.13+pool*.61)*streak)+ripple*.005,1.);
+}`};
 const water=new Reflector(new THREE.PlaneGeometry(11.98,11.98),{color:0x203442,textureWidth:1024,textureHeight:1024,clipBias:.003,shader:waterShader});water.rotation.x=-Math.PI/2;water.position.y=.038;scene.add(water);
 // Reflect only the miniature, keeping precipitation and the stage out of the mirror.
 const mirrorRender=water.onBeforeRender.bind(water);water.onBeforeRender=(...args)=>{rain.visible=false;ground.visible=false;mirrorRender(...args);rain.visible=true;ground.visible=true;};
@@ -117,13 +137,46 @@ for(let z=-3.95;z<.6;z+=.48)box(6.4,.012,.017,.7,4.019,z,'#536e7b',false);
 box(6.85,.17,.12,.7,4.06,-4.1,'#8d9c9b');box(.12,.17,5.15,4.06,4.06,-1.6,'#8d9c9b');box(.12,.17,5.15,-2.66,4.06,-1.6,'#8d9c9b');
 // Interior fridges now carry luminous vertical strips and proper price cards.
 for(let j=0;j<4;j++){box(.025,2.02,.025,-2.39+j*1.2,1.73,-2.985,mat('#ceffe8',2.1),false);for(let r=0;r<4;r++)for(let k=0;k<3;k++)box(.16,.04,.008,-2.18+j*1.2+k*.3,.75+r*.47,-2.93,'#f7e2ac',false);}
+// Small signs of daily life: a chalkboard, planted corner and roof service hatch.
+const board=box(.64,.88,.065,-3.04,.85,.56,'#344c48');board.rotation.z=-.06;
+label('夜のコーヒー',.54,.17,-3.04,1.08,.603,'#344c48','#f1dab0',112);
+label('HOT  ¥120',.53,.17,-3.04,.83,.605,'#344c48','#d9c392',103);
+for(const x of [-3.29,-2.79])box(.045,.97,.06,x,.79,.56,'#ae8863');
+function planter(x,z){
+ cyl(.24,.36,x,.53,z,'#a87966',.3);cyl(.255,.025,x,.715,z,'#374b44');
+ for(let i=0;i<9;i++){
+  const a=i*2.4,leaf=new THREE.Mesh(new THREE.SphereGeometry(1,7,5),material(i%2?'#6b957d':'#426e64'));
+  leaf.scale.set(.105,.25,.085);leaf.position.set(x+Math.sin(a)*.18,.88+(i%3)*.075,z+Math.cos(a)*.18);
+  leaf.rotation.set(Math.cos(a)*.45,0,Math.sin(a)*.45);scene.add(leaf);
+ }
+}
+planter(4.36,-.92);planter(-3.12,-.48);
+box(1.12,.065,.78,-.9,4.05,-2.8,'#526c76');box(.92,.035,.59,-.9,4.1,-2.8,'#6c8389');
+// Batch stationary opaque geometry and its outlines; preserve moving objects and glass.
+scene.updateMatrixWorld(true);
+const batches=new Map(),edgeParts=[];
+for(const mesh of [...scene.children]){
+ if(!mesh.isMesh || mesh===water || mesh===ground || signals.includes(mesh) || drips.includes(mesh) || mesh.material.transparent || mesh.material.isShaderMaterial)continue;
+ const key=mesh.material.uuid+':'+mesh.castShadow+':'+mesh.receiveShadow;
+ if(!batches.has(key))batches.set(key,{material:mesh.material,cast:mesh.castShadow,receive:mesh.receiveShadow,parts:[]});
+ batches.get(key).parts.push(mesh.geometry.clone().applyMatrix4(mesh.matrixWorld));
+ for(const child of mesh.children)if(child.isLineSegments){edgeParts.push(child.geometry.clone().applyMatrix4(child.matrixWorld));child.geometry.dispose();}
+ scene.remove(mesh);mesh.geometry.dispose();
+}
+for(const batch of batches.values()){
+ const geometry=mergeGeometries(batch.parts);batch.parts.forEach(g=>g.dispose());
+ const mesh=new THREE.Mesh(geometry,batch.material);mesh.castShadow=batch.cast;mesh.receiveShadow=batch.receive;scene.add(mesh);
+}
+if(edgeParts.length){const edges=new THREE.LineSegments(mergeGeometries(edgeParts),edgeMaterial);scene.add(edges);edgeParts.forEach(g=>g.dispose());}
+
 // Pass 3 — restrained HDR bloom and photographic edge falloff.
 const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
 const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.20,.42,1.35);composer.addPass(bloom);
-const grade=new ShaderPass({uniforms:{tDiffuse:{value:null}},vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`uniform sampler2D tDiffuse;varying vec2 vUv;void main(){vec3 c=texture2D(tDiffuse,vUv).rgb;float vignette=smoothstep(.88,.22,length((vUv-.5)*vec2(1.,.85)));c*=.78+.22*vignette;gl_FragColor=vec4(c,1.);}`});composer.addPass(grade);composer.addPass(new OutputPass());
-window.__sceneDiagnostics=()=>({objects:scene.children.length,drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,reflection:water.visible,camera:camera.position.toArray()});
+const grade=new ShaderPass({uniforms:{tDiffuse:{value:null}},vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`uniform sampler2D tDiffuse;varying vec2 vUv;void main(){vec3 c=texture2D(tDiffuse,vUv).rgb;float vignette=(1.-smoothstep(.22,.88,length((vUv-.5)*vec2(1.,.85))));c*=.78+.22*vignette;gl_FragColor=vec4(c,1.);}`});composer.addPass(grade);composer.addPass(new OutputPass());
+window.__sceneDiagnostics=()=>({objects:scene.children.length,drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,reflection:water.visible,reducedMotion:reducedMotion.matches,time:elapsed,camera:camera.position.toArray()});
 
 scene.traverse(o=>{if(o.isLight && o.shadow){o.shadow.autoUpdate=false;o.shadow.needsUpdate=true;}});
-let previous=0;function frame(ms){const t=ms/1000,dt=Math.min(t-previous,.04);previous=t;controls.update();for(let i=0;i<count;i++){const n=i*6;positions[n]-=dt*.6;if(positions[n]<-6)positions[n]=6;positions[n+1]-=dt*speeds[i];if(positions[n+1]<.15 || (positions[n]>-2.9 && positions[n]<4.15 && positions[n+2]>-4.2 && positions[n+2]<1.75 && positions[n+1]<4.1)){positions[n+1]=8.5;positions[n]=rand()*12-6;}positions[n+3]=positions[n]-.045;positions[n+4]=positions[n+1]+.18;}geo.attributes.position.needsUpdate=true;for(const r of rings){const a=(t*.65+r.phase)%1;r.mesh.scale.setScalar(.035+a*.36);r.mesh.material.opacity=(1-a)*.25;}for(const d of drips){d.position.y-=dt*3.6;if(d.position.y<.35)d.position.y=3;}for(const g of trails){g.position.y-=dt*.08;if(g.position.y<.8)g.position.y=3;}const cycle=t%19;const open=cycle>12&&cycle<17?Math.min(1,(cycle-12)*1.4,(17-cycle)*1.4):0;const easedOpen=open*open*(3-2*open);doors[0].position.x=1.88-easedOpen*.83;doors[1].position.x=2.83+easedOpen*.83;sign.emissiveIntensity=.7+Math.sin(t*2.8)*.025;signals.forEach((s,i)=>s.material.emissiveIntensity=(Math.floor(t/9)%3===i)?2:.05);reflections.forEach((m,i)=>m.material.opacity=.055+Math.sin(t*1.7+i)*.028);water.material.uniforms.time.value=t;composer.render();requestAnimationFrame(frame);}requestAnimationFrame(frame);
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);});
+let previous=0,elapsed=0;function frame(ms){const now=ms/1000,dt=reducedMotion.matches?0:Math.min(now-previous,.04);previous=now;elapsed+=dt;const t=elapsed;controls.enableDamping=!reducedMotion.matches;controls.update();for(let i=0;i<count;i++){const n=i*6;positions[n]-=dt*.6;if(positions[n]<-6)positions[n]=6;positions[n+1]-=dt*speeds[i];if(positions[n+1]<.15 || (positions[n]>-2.9 && positions[n]<4.15 && positions[n+2]>-4.2 && positions[n+2]<1.75 && positions[n+1]<4.1)){positions[n+1]=8.5;positions[n]=rand()*12-6;}positions[n+3]=positions[n]-.045;positions[n+4]=positions[n+1]+.18;}geo.attributes.position.needsUpdate=true;for(const r of rings){const a=(t*.65+r.phase)%1;r.mesh.scale.setScalar(.035+a*.36);r.mesh.material.opacity=(1-a)*.25;}for(const d of drips){d.position.y-=dt*3.6;if(d.position.y<.35)d.position.y=3;}for(const g of trails){g.position.y-=dt*.08;if(g.position.y<.8)g.position.y=3;}const cycle=t%19;const open=cycle>12&&cycle<17?Math.min(1,(cycle-12)*1.4,(17-cycle)*1.4):0;const easedOpen=open*open*(3-2*open);doors[0].position.x=1.88-easedOpen*.83;doors[1].position.x=2.83+easedOpen*.83;sign.emissiveIntensity=.7+Math.sin(t*2.8)*.025;signals.forEach((s,i)=>s.material.emissiveIntensity=(Math.floor(t/9)%3===i)?2:.05);reflections.forEach((m,i)=>m.material.opacity=.055+Math.sin(t*1.7+i)*.028);water.material.uniforms.time.value=t;renderer.info.reset();composer.render();requestAnimationFrame(frame);}requestAnimationFrame(frame);
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.fov=camera.aspect<1?THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(THREE.MathUtils.degToRad(36)/2)/camera.aspect)):36;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);});
+dispatchEvent(new Event('resize'));
 </script></body></html>
