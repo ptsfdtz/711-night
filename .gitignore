@@ -11,11 +11,7 @@ preview*.png
 /*/preview*.png
 
 # Incomplete / non-renderable model dumps, excluded until they can be finished
-GLM-5.1/
-Qwen3.8Flash/
 Qwen3.8Max/
-Grok4.7/
-KimiK3/
 
 # Editor and operating-system files
 .DS_Store

@@ -34,16 +34,22 @@ function loadPlaywright() {
 // unfinished dumps (see README "未纳入作品") stay out until they are fixed.
 // Ordered by model vendor: GPT, DeepSeek, Qwen, MiMo, Doubao, GLM, then the rest.
 const SCENES = [
+  { name: 'GPT 5.6 Terra', dir: 'GPT-5.6Terra' },
   { name: 'GPT 5.6 Luna', dir: 'GPT-5.6Luna' },
   { name: 'GPT 6 Astra', dir: 'GPT-6Astra' },
   { name: 'GPT 6 Luna', dir: 'GPT-6Luna' },
+  { name: 'GPT 6 Sol', dir: 'GPT-6Sol' },
   { name: 'DeepSeek V4.1 Flash', dir: 'DeepSeekV4.1Flash' },
   { name: 'Qwen 3.6 Flash', dir: 'qwen3.6-flash' },
+  { name: 'Qwen 3.8 Flash', dir: 'Qwen3.8Flash' },
   { name: 'MiMo V2.6 Flash', dir: 'MiMo-V2.6-Flash' },
   { name: 'MiMo V2.6 Pro', dir: 'MIMo-V2.6-Pro' },
   { name: 'Doubao 2.1', dir: 'doubao2.1' },
+  { name: 'GLM 5.1', dir: 'GLM-5.1' },
   { name: 'GLM 5.3 Flash', dir: 'GLM-5.3-Flash' },
+  { name: 'Grok 4.7', dir: 'Grok4.7' },
   { name: 'Hy4 Preview', dir: 'Hy4preview' },
+  { name: 'Kimi K3', dir: 'KimiK3' },
   { name: 'Ling 3.0 Flash', dir: 'Ling3.0-flash' },
   { name: 'LongCat 2.0', dir: 'LongCat2.0' },
   { name: 'MiniMax M3', dir: 'MiniMax-M3' },

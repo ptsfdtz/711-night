@@ -1,0 +1,25 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0e1a;
+}
+
+#scene {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  animation: fadeIn 1.4s ease-out both;
+  cursor: grab;
+}
+
+#scene:active {
+  cursor: grabbing;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
