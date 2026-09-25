@@ -11,6 +11,23 @@
 <table>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/GPT-5.6Sol/"><img src="docs/previews/gpt-5.6sol.png" alt="GPT 5.6 Sol 生成的雨夜便利店场景预览"></a><br>
+      <b>GPT 5.6 Sol</b> · <a href="https://ptsfdtz.github.io/711-night/GPT-5.6Sol/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/DeepSeekV4Pro/"><img src="docs/previews/deepseekv4pro.png" alt="DeepSeek V4 Pro 生成的雨夜便利店场景预览"></a><br>
+      <b>DeepSeek V4 Pro</b> · <a href="https://ptsfdtz.github.io/711-night/DeepSeekV4Pro/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/Gemini3.8Flash/"><img src="docs/previews/gemini3.8flash.png" alt="Gemini 3.8 Flash 生成的雨夜便利店场景预览"></a><br>
+      <b>Gemini 3.8 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/Gemini3.8Flash/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top"></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/GPT-5.6Luna/"><img src="docs/previews/gpt-5.6luna.png" alt="GPT 5.6 Luna 生成的雨夜便利店场景预览"></a><br>
       <b>GPT 5.6 Luna</b> · <a href="https://ptsfdtz.github.io/711-night/GPT-5.6Luna/">打开互动场景</a>
     </td>
