@@ -58,6 +58,13 @@
   </tr>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/qwen3.8-27b/"><img src="docs/previews/qwen3.8-27b.png" alt="Qwen 3.8 27B 生成的雨夜便利店场景预览"></a><br>
+      <b>Qwen 3.8 27B</b> · <a href="https://ptsfdtz.github.io/711-night/qwen3.8-27b/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top"></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/MIMo-V2.6-Pro/"><img src="docs/previews/mimo-v2.6-pro.png" alt="MiMo V2.6 Pro 生成的雨夜便利店场景预览"></a><br>
       <b>MiMo V2.6 Pro</b> · <a href="https://ptsfdtz.github.io/711-night/MIMo-V2.6-Pro/">打开互动场景</a>
     </td>
