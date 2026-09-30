@@ -10,9 +10,6 @@ verify.cjs
 preview*.png
 /*/preview*.png
 
-# Incomplete / non-renderable model dumps, excluded until they can be finished
-Qwen3.8Max/
-
 # Editor and operating-system files
 .DS_Store
 Thumbs.db
