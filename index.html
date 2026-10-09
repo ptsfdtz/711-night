@@ -83,6 +83,7 @@
   }
   .card-head .name { font-size: 14px; font-weight: 600; }
   .card-head .path { font-size: 11px; color: var(--muted); margin-left: 8px; }
+  .card-head .note { display: block; margin-top: 5px; color: #e7ad62; font-size: 11px; line-height: 1.4; }
   .card-head .go { font-size: 13px; color: var(--muted); }
   .card:hover .go { color: var(--accent); }
 
@@ -146,11 +147,14 @@
     { name: "Muse Spark 1.3", dir: "muse-spark-1.3" },
     { name: "Nemotron 3.5 Lightning", dir: "nemotron-3.5-lightning" },
     { name: "Claude Haiku 5.5", dir: "ClaudeHaiku5.5" },
-    { name: "Space Bunny Free", dir: "SpaceBunnyFree" }
+    { name: "Space Bunny Free", dir: "SpaceBunnyFree" },
+    { name: "Claude Fable 5.1", dir: "claude-fable-5.1", entry: "rainy-night-store.html", note: true },
+    { name: "Claude Opus 5.5", dir: "claude-opus-5.5", entry: "rainy-night-convenience-store.html", note: true },
+    { name: "Claude Sonnet 5.5", dir: "claude-sonnet-5.5", entry: "rainy-night-convenience-store.html", note: true }
   ];
 
   // Change this value whenever a scene deployment needs viewers to reload its assets.
-  const release = "20261009-new-scenes";
+  const release = "20261009-claude-trio";
 
   const grid = document.getElementById("grid");
   const frag = document.createDocumentFragment();
@@ -166,7 +170,7 @@
     card.rel = "noopener";
     card.innerHTML = `
       <div class="card-head">
-        <div><span class="name">${p.name}</span><span class="path">${p.dir}/</span></div>
+        <div><span class="name">${p.name}</span><span class="path">${p.dir}/</span>${p.note ? '<span class="note">API 来自注水中转站，效果不代表模型实际表现</span>' : ''}</div>
         <span class="go" aria-hidden="true">↗</span>
       </div>
       <div class="thumb">

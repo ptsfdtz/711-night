@@ -62,7 +62,10 @@ const SCENES = [
   { name: 'Muse Spark 1.3', dir: 'muse-spark-1.3' },
   { name: 'Nemotron 3.5 Lightning', dir: 'nemotron-3.5-lightning' },
   { name: 'Claude Haiku 5.5', dir: 'ClaudeHaiku5.5' },
-  { name: 'Space Bunny Free', dir: 'SpaceBunnyFree' }
+  { name: 'Space Bunny Free', dir: 'SpaceBunnyFree' },
+  { name: 'Claude Fable 5.1', dir: 'claude-fable-5.1', entry: 'rainy-night-store.html' },
+  { name: 'Claude Opus 5.5', dir: 'claude-opus-5.5', entry: 'rainy-night-convenience-store.html' },
+  { name: 'Claude Sonnet 5.5', dir: 'claude-sonnet-5.5', entry: 'rainy-night-convenience-store.html' }
 ];
 
 function parseArgs(argv) {

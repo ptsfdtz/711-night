@@ -156,7 +156,29 @@
       <b>Space Bunny Free</b> · <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/">打开互动场景</a>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/claude-fable-5.1/rainy-night-store.html"><img src="docs/previews/claude-fable-5.1.png" alt="Claude Fable 5.1 生成的雨夜便利店场景预览"></a><br>
+      <b>Claude Fable 5.1</b> · <a href="https://ptsfdtz.github.io/711-night/claude-fable-5.1/rainy-night-store.html">打开互动场景</a><br>
+      <small>API 来自注水中转站，效果不代表模型实际表现。</small>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/claude-opus-5.5/rainy-night-convenience-store.html"><img src="docs/previews/claude-opus-5.5.png" alt="Claude Opus 5.5 生成的雨夜便利店场景预览"></a><br>
+      <b>Claude Opus 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/claude-opus-5.5/rainy-night-convenience-store.html">打开互动场景</a><br>
+      <small>API 来自注水中转站，效果不代表模型实际表现。</small>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/claude-sonnet-5.5/rainy-night-convenience-store.html"><img src="docs/previews/claude-sonnet-5.5.png" alt="Claude Sonnet 5.5 生成的雨夜便利店场景预览"></a><br>
+      <b>Claude Sonnet 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/claude-sonnet-5.5/rainy-night-convenience-store.html">打开互动场景</a><br>
+      <small>API 来自注水中转站，效果不代表模型实际表现。</small>
+    </td>
+    <td width="50%" valign="top"></td>
+  </tr>
 </table>
+
+> **API 来源说明：** Claude Fable 5.1、Claude Opus 5.5 和 Claude Sonnet 5.5 使用的 API 来自注水中转站，因此这些场景的产出不代表对应模型的实际效果。
 
 ## 提示词
 
