@@ -146,6 +146,16 @@
       <b>Nemotron 3.5 Lightning</b> · <a href="https://ptsfdtz.github.io/711-night/nemotron-3.5-lightning/">打开互动场景</a>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/"><img src="docs/previews/claudehaiku5.5.png" alt="Claude Haiku 5.5 scene preview"></a><br>
+      <b>Claude Haiku 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/"><img src="docs/previews/spacebunnyfree.png" alt="Space Bunny Free scene preview"></a><br>
+      <b>Space Bunny Free</b> · <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/">打开互动场景</a>
+    </td>
+  </tr>
 </table>
 
 ## 提示词
@@ -158,7 +168,7 @@
 
 ## 目录约定
 
-每个作品放在自己的目录中，目录名使用小写短横线格式，并与模型显示名对应（如 `gpt-6.1-sol` 对应 GPT 6.1 Sol）。通常以 `目录名/index.html` 为入口；独立打包的作品也可指向目录内的其他 HTML 文件。预览图统一放在 `docs/previews/`，并以目录名命名。
+每个作品放在自己的目录中，目录名原则上使用小写短横线格式，并与模型显示名对应（如 `gpt-6.1-sol` 对应 GPT 6.1 Sol）。通常以 `目录名/index.html` 为入口；独立打包的作品也可指向目录内的其他 HTML 文件。预览图统一放在 `docs/previews/`，并以目录名的小写形式命名。
 
 ```text
 新模型目录/

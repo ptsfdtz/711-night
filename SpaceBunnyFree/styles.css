@@ -1,0 +1,30 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #05070d;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+#stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 900ms ease-out;
+}
+
+#stage.ready {
+  opacity: 1;
+}
+
+#stage.dragging {
+  cursor: grabbing;
+}

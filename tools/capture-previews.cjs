@@ -60,7 +60,9 @@ const SCENES = [
   { name: 'LongCat 2.0', dir: 'longcat-2.0' },
   { name: 'MiniMax M3', dir: 'minimax-m3' },
   { name: 'Muse Spark 1.3', dir: 'muse-spark-1.3' },
-  { name: 'Nemotron 3.5 Lightning', dir: 'nemotron-3.5-lightning' }
+  { name: 'Nemotron 3.5 Lightning', dir: 'nemotron-3.5-lightning' },
+  { name: 'Claude Haiku 5.5', dir: 'ClaudeHaiku5.5' },
+  { name: 'Space Bunny Free', dir: 'SpaceBunnyFree' }
 ];
 
 function parseArgs(argv) {
