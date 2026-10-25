@@ -56,6 +56,7 @@ const SCENES = [
   { name: 'Grok 4.7', dir: 'grok-4.7' },
   { name: 'Hy4 Preview', dir: 'hy4-preview' },
   { name: 'Kimi K3', dir: 'kimi-k3' },
+  { name: 'KimiK3.1Pro', dir: 'KimiK3.1Pro' },
   { name: 'Ling 3.0 Flash', dir: 'ling-3.0-flash' },
   { name: 'LongCat 2.0', dir: 'longcat-2.0' },
   { name: 'MiniMax M3', dir: 'minimax-m3' },

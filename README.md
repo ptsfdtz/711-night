@@ -122,6 +122,12 @@
       <b>Kimi K3</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3/">打开互动场景</a>
     </td>
     <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/KimiK3.1Pro/"><img src="docs/previews/kimik3.1pro.png" alt="KimiK3.1Pro 生成的雨夜便利店场景预览"></a><br>
+      <b>KimiK3.1Pro</b> · <a href="https://ptsfdtz.github.io/711-night/KimiK3.1Pro/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/ling-3.0-flash/"><img src="docs/previews/ling-3.0-flash.png" alt="Ling 3.0 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>Ling 3.0 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/ling-3.0-flash/">打开互动场景</a>
     </td>
