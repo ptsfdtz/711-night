@@ -8,6 +8,7 @@
 
 ## 作品预览
 
+<!-- BEGIN GENERATED SCENE TABLE -->
 <table>
   <tr>
     <td width="50%" valign="top">
@@ -74,66 +75,69 @@
       <a href="https://ptsfdtz.github.io/711-night/qwen-3.8-max/"><img src="docs/previews/qwen-3.8-max.png" alt="Qwen 3.8 Max 生成的雨夜便利店场景预览"></a><br>
       <b>Qwen 3.8 Max</b> · <a href="https://ptsfdtz.github.io/711-night/qwen-3.8-max/">打开互动场景</a>
     </td>
-    <td width="50%" valign="top"></td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/mimo-v2.6-flash/"><img src="docs/previews/mimo-v2.6-flash.png" alt="MiMo V2.6 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>MiMo V2.6 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/mimo-v2.6-flash/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/mimo-v2.6-pro/"><img src="docs/previews/mimo-v2.6-pro.png" alt="MiMo V2.6 Pro 生成的雨夜便利店场景预览"></a><br>
       <b>MiMo V2.6 Pro</b> · <a href="https://ptsfdtz.github.io/711-night/mimo-v2.6-pro/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/doubao-2.1/"><img src="docs/previews/doubao-2.1.png" alt="Doubao 2.1 生成的雨夜便利店场景预览"></a><br>
       <b>Doubao 2.1</b> · <a href="https://ptsfdtz.github.io/711-night/doubao-2.1/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/glm-5.1/"><img src="docs/previews/glm-5.1.png" alt="GLM 5.1 生成的雨夜便利店场景预览"></a><br>
       <b>GLM 5.1</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5.1/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/glm-5.3-flash/"><img src="docs/previews/glm-5.3-flash.png" alt="GLM 5.3 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>GLM 5.3 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5.3-flash/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/gemini-3.8-flash/"><img src="docs/previews/gemini-3.8-flash.png" alt="Gemini 3.8 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>Gemini 3.8 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/gemini-3.8-flash/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/grok-4.7/"><img src="docs/previews/grok-4.7.png" alt="Grok 4.7 生成的雨夜便利店场景预览"></a><br>
       <b>Grok 4.7</b> · <a href="https://ptsfdtz.github.io/711-night/grok-4.7/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/hy4-preview/"><img src="docs/previews/hy4-preview.png" alt="Hy4 Preview 生成的雨夜便利店场景预览"></a><br>
       <b>Hy4 Preview</b> · <a href="https://ptsfdtz.github.io/711-night/hy4-preview/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/kimi-k3/"><img src="docs/previews/kimi-k3.png" alt="Kimi K3 生成的雨夜便利店场景预览"></a><br>
       <b>Kimi K3</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/ling-3.0-flash/"><img src="docs/previews/ling-3.0-flash.png" alt="Ling 3.0 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>Ling 3.0 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/ling-3.0-flash/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/longcat-2.0/"><img src="docs/previews/longcat-2.0.png" alt="LongCat 2.0 生成的雨夜便利店场景预览"></a><br>
       <b>LongCat 2.0</b> · <a href="https://ptsfdtz.github.io/711-night/longcat-2.0/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/minimax-m3/"><img src="docs/previews/minimax-m3.png" alt="MiniMax M3 生成的雨夜便利店场景预览"></a><br>
       <b>MiniMax M3</b> · <a href="https://ptsfdtz.github.io/711-night/minimax-m3/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/minimax-m3.1-flash/"><img src="docs/previews/minimax-m3.1-flash.png" alt="MiniMax M3.1 Flash 生成的雨夜便利店场景预览"></a><br>
+      <b>MiniMax M3.1 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/minimax-m3.1-flash/">打开互动场景</a>
     </td>
   </tr>
   <tr>
@@ -148,11 +152,11 @@
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/"><img src="docs/previews/claudehaiku5.5.png" alt="Claude Haiku 5.5 scene preview"></a><br>
+      <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/"><img src="docs/previews/claudehaiku5.5.png" alt="Claude Haiku 5.5 生成的雨夜便利店场景预览"></a><br>
       <b>Claude Haiku 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/">打开互动场景</a>
     </td>
     <td width="50%" valign="top">
-      <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/"><img src="docs/previews/spacebunnyfree.png" alt="Space Bunny Free scene preview"></a><br>
+      <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/"><img src="docs/previews/spacebunnyfree.png" alt="Space Bunny Free 生成的雨夜便利店场景预览"></a><br>
       <b>Space Bunny Free</b> · <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/">打开互动场景</a>
     </td>
   </tr>
@@ -177,6 +181,7 @@
     <td width="50%" valign="top"></td>
   </tr>
 </table>
+<!-- END GENERATED SCENE TABLE -->
 
 > **API 来源说明：** Claude Fable 5.1、Claude Opus 5.5 和 Claude Sonnet 5.5 使用的 API 来自注水中转站，因此这些场景的产出不代表对应模型的实际效果。
 
@@ -206,10 +211,11 @@ docs/previews/
 
 1. Fork 本仓库并新建分支。
 2. 新建 `模型目录/index.html`，保证可独立打开；本地预览可在仓库根目录运行 `python -m http.server 18990 --bind 127.0.0.1`，浏览器访问 `http://127.0.0.1:18990/模型目录/`。
-3. 在根目录 `index.html` 的 `pages` 数组中添加 `{ name: "显示名", dir: "模型目录" }`，它会自动出现在在线总览中。
-4. 生成预览图（见下方[预览截图工具](#预览截图工具)），输出 `docs/previews/<小写目录名>.png`。
-5. 在 README「作品预览」表格中复制一个单元格，替换名称、截图路径和互动场景链接。
-6. 提交并推送到 `master`，GitHub Pages 会自动发布。
+3. 在根目录 `scenes.json` 中添加场景记录，按厂商顺序填写名称、目录、可选入口文件和提示文字。
+4. 运行 `node tools/sync-catalog.cjs`，生成总览页数据并更新 README 作品表格。
+5. 生成预览图（见下方[预览截图工具](#预览截图工具)），输出 `docs/previews/<小写目录名>.png`。
+6. 运行 `node tools/sync-catalog.cjs --check`，确认清单与生成文件一致。
+7. 提交并推送到 `master`，GitHub Pages 会自动发布。
 
 排序约定：总览与预览表格按模型厂商排列，顺序为 GPT、DeepSeek、Qwen、MiMo、Doubao、GLM，其余厂商排在最后。
 
@@ -217,7 +223,7 @@ docs/previews/
 
 ## 预览截图工具
 
-`tools/capture-previews.cjs` 会用 Playwright 无头浏览器批量截取每个场景的 `1280 × 800` 预览图，输出到 `docs/previews/`。
+`tools/capture-previews.cjs` 会用 Playwright 无头浏览器批量截取 `scenes.json` 中的场景，输出 `1280 × 800` 预览图到 `docs/previews/`。
 
 ```bash
 # 1. 启动本地静态服务器（任选一个）
@@ -230,4 +236,4 @@ node tools/capture-previews.cjs --port 18990
 node tools/capture-previews.cjs --port 18990 gpt-6-astra
 ```
 
-依赖 Playwright：优先使用仓库内已安装的 `node_modules`，否则回退到 `gpt-6-astra/node_modules`。若都没有，先在本机安装一次：`npm i -D playwright && npx playwright install chromium`。新增作品时，记得把目录加入脚本顶部的 `SCENES` 列表（同样按厂商顺序排列）。
+依赖 Playwright：优先使用仓库内已安装的 `node_modules`，否则回退到 `gpt-6-astra/node_modules`。若都没有，先在本机安装一次：`npm i -D playwright && npx playwright install chromium`。修改清单后可运行 `node tools/sync-catalog.cjs --check` 检查生成文件是否同步。

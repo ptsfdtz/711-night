@@ -1,0 +1,27 @@
+/* 雨夜便利店街角 —— 无任何 UI 界面，仅保留画布 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #05070f;
+}
+
+#stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+  outline: none;
+}
+
+#stage:active {
+  cursor: grabbing;
+}
