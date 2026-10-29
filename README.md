@@ -162,69 +162,73 @@ GPT 6.1 Terra 使用本地 vendor 依赖；Kimi K3.1 Pro 提供使用相对资�
       <b>Kimi K3</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3/">打开互动场景</a>
     </td>
     <td width="50%" valign="top">
-      <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro/"><img src="docs/previews/kimi-k3.1-pro.png" alt="Kimi K3.1 Pro 生成的雨夜便利店场景预览"></a><br>
-      <b>Kimi K3.1 Pro</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro/">打开互动场景</a>
+      <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro/"><img src="docs/previews/kimi-k3.1-pro.png" alt="Kimi K3.1 Pro · 原版（ptsfdtz） 生成的雨夜便利店场景预览"></a><br>
+      <b>Kimi K3.1 Pro · 原版（ptsfdtz）</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro/">打开互动场景</a>
     </td>
   </tr>
   <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro-high-thinking/"><img src="docs/previews/kimi-k3.1-pro-high-thinking.png" alt="Kimi K3.1 Pro · 高思考版（sanhaikeji） 生成的雨夜便利店场景预览"></a><br>
+      <b>Kimi K3.1 Pro · 高思考版（sanhaikeji）</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro-high-thinking/">打开互动场景</a><br>
+      <small>贡献者 sanhaikeji 提交，作者注明为高思考模式的生成结果。</small>
+    </td>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/ling-3.0-flash/"><img src="docs/previews/ling-3.0-flash.png" alt="Ling 3.0 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>Ling 3.0 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/ling-3.0-flash/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/longcat-2.0/"><img src="docs/previews/longcat-2.0.png" alt="LongCat 2.0 生成的雨夜便利店场景预览"></a><br>
       <b>LongCat 2.0</b> · <a href="https://ptsfdtz.github.io/711-night/longcat-2.0/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/minimax-m3/"><img src="docs/previews/minimax-m3.png" alt="MiniMax M3 生成的雨夜便利店场景预览"></a><br>
       <b>MiniMax M3</b> · <a href="https://ptsfdtz.github.io/711-night/minimax-m3/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/minimax-m3.1-flash/"><img src="docs/previews/minimax-m3.1-flash.png" alt="MiniMax M3.1 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>MiniMax M3.1 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/minimax-m3.1-flash/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/muse-spark-1.3/"><img src="docs/previews/muse-spark-1.3.png" alt="Muse Spark 1.3 生成的雨夜便利店场景预览"></a><br>
       <b>Muse Spark 1.3</b> · <a href="https://ptsfdtz.github.io/711-night/muse-spark-1.3/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/nemotron-3.5-lightning/"><img src="docs/previews/nemotron-3.5-lightning.png" alt="Nemotron 3.5 Lightning 生成的雨夜便利店场景预览"></a><br>
       <b>Nemotron 3.5 Lightning</b> · <a href="https://ptsfdtz.github.io/711-night/nemotron-3.5-lightning/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/"><img src="docs/previews/claudehaiku5.5.png" alt="Claude Haiku 5.5 生成的雨夜便利店场景预览"></a><br>
       <b>Claude Haiku 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/ClaudeHaiku5.5/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/"><img src="docs/previews/spacebunnyfree.png" alt="Space Bunny Free 生成的雨夜便利店场景预览"></a><br>
       <b>Space Bunny Free</b> · <a href="https://ptsfdtz.github.io/711-night/SpaceBunnyFree/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/claude-fable-5.1/rainy-night-store.html"><img src="docs/previews/claude-fable-5.1.png" alt="Claude Fable 5.1 生成的雨夜便利店场景预览"></a><br>
       <b>Claude Fable 5.1</b> · <a href="https://ptsfdtz.github.io/711-night/claude-fable-5.1/rainy-night-store.html">打开互动场景</a><br>
       <small>API 来自注水中转站，效果不代表模型实际表现。</small>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/claude-opus-5.5/rainy-night-convenience-store.html"><img src="docs/previews/claude-opus-5.5.png" alt="Claude Opus 5.5 生成的雨夜便利店场景预览"></a><br>
       <b>Claude Opus 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/claude-opus-5.5/rainy-night-convenience-store.html">打开互动场景</a><br>
       <small>API 来自注水中转站，效果不代表模型实际表现。</small>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/claude-sonnet-5.5/rainy-night-convenience-store.html"><img src="docs/previews/claude-sonnet-5.5.png" alt="Claude Sonnet 5.5 生成的雨夜便利店场景预览"></a><br>
       <b>Claude Sonnet 5.5</b> · <a href="https://ptsfdtz.github.io/711-night/claude-sonnet-5.5/rainy-night-convenience-store.html">打开互动场景</a><br>
       <small>API 来自注水中转站，效果不代表模型实际表现。</small>
     </td>
-    <td width="50%" valign="top"></td>
   </tr>
 </table>
 <!-- END GENERATED SCENE TABLE -->

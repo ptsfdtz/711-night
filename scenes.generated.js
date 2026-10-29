@@ -118,8 +118,13 @@ window.SCENES = [
     "dir": "kimi-k3"
   },
   {
-    "name": "Kimi K3.1 Pro",
+    "name": "Kimi K3.1 Pro · 原版（ptsfdtz）",
     "dir": "kimi-k3.1-pro"
+  },
+  {
+    "name": "Kimi K3.1 Pro · 高思考版（sanhaikeji）",
+    "dir": "kimi-k3.1-pro-high-thinking",
+    "note": "贡献者 sanhaikeji 提交，作者注明为高思考模式的生成结果"
   },
   {
     "name": "Ling 3.0 Flash",
