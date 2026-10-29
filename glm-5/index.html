@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雨夜便利店街角</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container"></div>
+
+    <!-- Vertex Shader for Toon Shading -->
+    <script id="toonVertexShader" type="x-shader/x-vertex">
+        varying vec3 vNormal;
+        varying vec3 vViewPosition;
+        varying vec2 vUv;
+
+        void main() {
+            vUv = uv;
+            vNormal = normalize(normalMatrix * normal);
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            vViewPosition = -mvPosition.xyz;
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+
+    <!-- Fragment Shader for Toon Shading -->
+    <script id="toonFragmentShader" type="x-shader/x-fragment">
+        uniform vec3 uColor;
+        uniform vec3 uLightColor;
+        uniform vec3 uLightDir;
+        uniform float uUseOutline;
+
+        varying vec3 vNormal;
+        varying vec3 vViewPosition;
+        varying vec2 vUv;
+
+        void main() {
+            vec3 normal = normalize(vNormal);
+            vec3 lightDir = normalize(uLightDir);
+
+            float NdotL = dot(normal, lightDir);
+
+            // Toon shading with 3 levels
+            float intensity;
+            if (NdotL > 0.6) {
+                intensity = 1.0;
+            } else if (NdotL > 0.2) {
+                intensity = 0.7;
+            } else if (NdotL > -0.1) {
+                intensity = 0.5;
+            } else {
+                intensity = 0.3;
+            }
+
+            vec3 color = uColor * intensity * uLightColor;
+
+            gl_FragColor = vec4(color, 1.0);
+        }
+    </script>
+
+    <!-- Outline Vertex Shader -->
+    <script id="outlineVertexShader" type="x-shader/x-vertex">
+        uniform float uOutlineWidth;
+
+        void main() {
+            vec3 pos = position + normal * uOutlineWidth;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        }
+    </script>
+
+    <!-- Outline Fragment Shader -->
+    <script id="outlineFragmentShader" type="x-shader/x-fragment">
+        uniform vec3 uOutlineColor;
+
+        void main() {
+            gl_FragColor = vec4(uOutlineColor, 1.0);
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

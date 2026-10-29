@@ -30,8 +30,16 @@ window.SCENES = [
     "entry": "Rainy-Corner.html"
   },
   {
+    "name": "GPT 6.1 Terra",
+    "dir": "gpt-6.1-terra"
+  },
+  {
     "name": "DeepSeek V4.1 Flash",
     "dir": "deepseek-v4.1-flash"
+  },
+  {
+    "name": "DeepSeek V4.1 Flash 1017",
+    "dir": "deepseek-v4.1-flash1017"
   },
   {
     "name": "DeepSeek V4 Pro",
@@ -66,8 +74,20 @@ window.SCENES = [
     "dir": "doubao-2.1"
   },
   {
+    "name": "GLM 5",
+    "dir": "glm-5"
+  },
+  {
     "name": "GLM 5.1",
     "dir": "glm-5.1"
+  },
+  {
+    "name": "GLM 5.2",
+    "dir": "glm-5.2"
+  },
+  {
+    "name": "GLM 5.3",
+    "dir": "glm-5.3"
   },
   {
     "name": "GLM 5.3 Flash",
@@ -86,8 +106,20 @@ window.SCENES = [
     "dir": "hy4-preview"
   },
   {
+    "name": "Kimi K2.5",
+    "dir": "kimi-k2.5"
+  },
+  {
+    "name": "Kimi K2.6",
+    "dir": "kimi-k2.6"
+  },
+  {
     "name": "Kimi K3",
     "dir": "kimi-k3"
+  },
+  {
+    "name": "Kimi K3.1 Pro",
+    "dir": "kimi-k3.1-pro"
   },
   {
     "name": "Ling 3.0 Flash",

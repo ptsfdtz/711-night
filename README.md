@@ -6,6 +6,12 @@
 
 > 与主题一起给出的原始提示词见下方 [提示词](#提示词)。
 
+## 本次更新（2026-10-29）
+
+新增 GPT 6.1 Terra、DeepSeek V4.1 Flash 1017、GLM 5 / 5.2 / 5.3、Kimi K2.5 / K2.6 / K3.1 Pro，并汇总 MiniMax M3.1 Flash，共 41 个场景。所有作品均可从下方预览表和在线总览进入。
+
+GPT 6.1 Terra 使用本地 vendor 依赖；Kimi K3.1 Pro 提供使用相对资源路径的静态构建入口，可直接部署到 GitHub Pages。
+
 ## 作品预览
 
 <!-- BEGIN GENERATED SCENE TABLE -->
@@ -46,8 +52,18 @@
       <b>GPT 6.1 Sol</b> · <a href="https://ptsfdtz.github.io/711-night/gpt-6.1-sol/Rainy-Corner.html">打开互动场景</a>
     </td>
     <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/gpt-6.1-terra/"><img src="docs/previews/gpt-6.1-terra.png" alt="GPT 6.1 Terra 生成的雨夜便利店场景预览"></a><br>
+      <b>GPT 6.1 Terra</b> · <a href="https://ptsfdtz.github.io/711-night/gpt-6.1-terra/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/deepseek-v4.1-flash/"><img src="docs/previews/deepseek-v4.1-flash.png" alt="DeepSeek V4.1 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>DeepSeek V4.1 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/deepseek-v4.1-flash/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/deepseek-v4.1-flash1017/"><img src="docs/previews/deepseek-v4.1-flash1017.png" alt="DeepSeek V4.1 Flash 1017 生成的雨夜便利店场景预览"></a><br>
+      <b>DeepSeek V4.1 Flash 1017</b> · <a href="https://ptsfdtz.github.io/711-night/deepseek-v4.1-flash1017/">打开互动场景</a>
     </td>
   </tr>
   <tr>
@@ -92,32 +108,62 @@
   </tr>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/glm-5/"><img src="docs/previews/glm-5.png" alt="GLM 5 生成的雨夜便利店场景预览"></a><br>
+      <b>GLM 5</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/glm-5.1/"><img src="docs/previews/glm-5.1.png" alt="GLM 5.1 生成的雨夜便利店场景预览"></a><br>
       <b>GLM 5.1</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5.1/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/glm-5.2/"><img src="docs/previews/glm-5.2.png" alt="GLM 5.2 生成的雨夜便利店场景预览"></a><br>
+      <b>GLM 5.2</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5.2/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/glm-5.3/"><img src="docs/previews/glm-5.3.png" alt="GLM 5.3 生成的雨夜便利店场景预览"></a><br>
+      <b>GLM 5.3</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5.3/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/glm-5.3-flash/"><img src="docs/previews/glm-5.3-flash.png" alt="GLM 5.3 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>GLM 5.3 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/glm-5.3-flash/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/gemini-3.8-flash/"><img src="docs/previews/gemini-3.8-flash.png" alt="Gemini 3.8 Flash 生成的雨夜便利店场景预览"></a><br>
       <b>Gemini 3.8 Flash</b> · <a href="https://ptsfdtz.github.io/711-night/gemini-3.8-flash/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/grok-4.7/"><img src="docs/previews/grok-4.7.png" alt="Grok 4.7 生成的雨夜便利店场景预览"></a><br>
       <b>Grok 4.7</b> · <a href="https://ptsfdtz.github.io/711-night/grok-4.7/">打开互动场景</a>
     </td>
-  </tr>
-  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/hy4-preview/"><img src="docs/previews/hy4-preview.png" alt="Hy4 Preview 生成的雨夜便利店场景预览"></a><br>
       <b>Hy4 Preview</b> · <a href="https://ptsfdtz.github.io/711-night/hy4-preview/">打开互动场景</a>
     </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/kimi-k2.5/"><img src="docs/previews/kimi-k2.5.png" alt="Kimi K2.5 生成的雨夜便利店场景预览"></a><br>
+      <b>Kimi K2.5</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k2.5/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/kimi-k2.6/"><img src="docs/previews/kimi-k2.6.png" alt="Kimi K2.6 生成的雨夜便利店场景预览"></a><br>
+      <b>Kimi K2.6</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k2.6/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/kimi-k3/"><img src="docs/previews/kimi-k3.png" alt="Kimi K3 生成的雨夜便利店场景预览"></a><br>
       <b>Kimi K3</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro/"><img src="docs/previews/kimi-k3.1-pro.png" alt="Kimi K3.1 Pro 生成的雨夜便利店场景预览"></a><br>
+      <b>Kimi K3.1 Pro</b> · <a href="https://ptsfdtz.github.io/711-night/kimi-k3.1-pro/">打开互动场景</a>
     </td>
   </tr>
   <tr>
