@@ -117,7 +117,7 @@
 
 <div class="grid" id="grid"></div>
 
-<script src="scenes.generated.js?v=245dca0dd636"></script>
+<script src="models/scenes.generated.js?v=f1b6814b4026"></script>
 <script>
   const pages = window.SCENES;
 
@@ -129,8 +129,8 @@
 
   pages.forEach(p => {
     const entry = (p.entry || "index.html").split(/[\\/]/).map(encodeURIComponent).join("/");
-    const url = encodeURIComponent(p.dir) + "/" + entry + "?v=" + release;
-    const preview = "docs/previews/" + encodeURIComponent(p.dir.toLowerCase()) + ".png";
+    const url = "models/" + p.dir.split("/").map(encodeURIComponent).join("/") + "/" + entry + "?v=" + release;
+    const preview = "docs/previews/" + encodeURIComponent(p.dir.replace("/", "-")) + ".png";
 
     const card = document.createElement("a");
     card.className = "card";

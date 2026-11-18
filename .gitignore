@@ -6,9 +6,9 @@ node_modules/
 # Official previews live in docs/previews/, so local screenshots are not uploaded.
 package-lock.json
 verify.cjs
-/*/package.json
+/models/*/*/package.json
 preview*.png
-/*/preview*.png
+/models/*/*/preview*.png
 
 # Editor and operating-system files
 .DS_Store

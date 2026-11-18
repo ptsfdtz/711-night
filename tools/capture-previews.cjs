@@ -7,23 +7,23 @@
 //        node tools/capture-previews.cjs [--port 18990] [dir ...]
 //
 // Requires Playwright. It is resolved from a local node_modules if present,
-// otherwise from the copy bundled inside gpt-6-astra/.
+// otherwise from the copy bundled inside models/gpt/6-astra/.
 //
 // Each scene directory must expose an HTML entry. Previews are written
-// to docs/previews/<directory-name>.png.
+// to docs/previews/<model>-<version>.png.
 
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'previews');
-const SCENES = require(path.join(ROOT, 'scenes.json'));
+const SCENES = require(path.join(ROOT, 'models', 'scenes.json'));
 
 function loadPlaywright() {
   try {
     return require('playwright');
   } catch (_) {
-    const bundled = path.join(ROOT, 'gpt-6-astra', 'node_modules', 'playwright');
+    const bundled = path.join(ROOT, 'models', 'gpt', '6-astra', 'node_modules', 'playwright');
     if (!fs.existsSync(bundled)) {
       throw new Error('Playwright not found. Run `npm i -D playwright` at the repo root first.');
     }
@@ -62,12 +62,12 @@ function parseArgs(argv) {
     page.on('pageerror', e => errors.push(e.message));
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
     const entry = (scene.entry || 'index.html').split(/[\\/]/).map(encodeURIComponent).join('/');
-    const url = `${base}/${encodeURIComponent(scene.dir)}/${entry}`;
+    const url = `${base}/models/${scene.dir.split("/").map(encodeURIComponent).join("/")}/${entry}`;
     try {
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
       await page.waitForSelector('canvas', { timeout: 45000 });
       await page.waitForTimeout(4000);
-      const shot = path.join(OUT_DIR, scene.dir.toLowerCase() + '.png');
+      const shot = path.join(OUT_DIR, scene.dir.replace('/', '-') + '.png');
       await page.screenshot({ path: shot });
       const size = fs.statSync(shot).size;
       console.log(`OK   ${scene.dir.padEnd(24)} -> docs/previews/${path.basename(shot)} (${size} bytes)`);
