@@ -8,7 +8,7 @@
 
 ## 本次更新（2026-10-29）
 
-新增 GPT 6.1 Terra、DeepSeek V4.1 Flash 1017、GLM 5 / 5.2 / 5.3、Kimi K2.5 / K2.6 / K3.1 Pro，并汇总 MiniMax M3.1 Flash，共 41 个场景。所有作品均可从下方预览表和在线总览进入。
+新增 GPT 6.2 Astra 和 GPT 6.2 Sol，共 44 个场景。所有作品均可从下方预览表和在线总览进入。
 
 GPT 6.1 Terra 使用本地 vendor 依赖；Kimi K3.1 Pro 提供使用相对资源路径的静态构建入口，可直接部署到 GitHub Pages。
 
@@ -54,6 +54,16 @@ GPT 6.1 Terra 使用本地 vendor 依赖；Kimi K3.1 Pro 提供使用相对资�
     <td width="50%" valign="top">
       <a href="https://ptsfdtz.github.io/711-night/gpt-6.1-terra/"><img src="docs/previews/gpt-6.1-terra.png" alt="GPT 6.1 Terra 生成的雨夜便利店场景预览"></a><br>
       <b>GPT 6.1 Terra</b> · <a href="https://ptsfdtz.github.io/711-night/gpt-6.1-terra/">打开互动场景</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/gpt-6.2-Astra/"><img src="docs/previews/gpt-6.2-astra.png" alt="GPT 6.2 Astra 生成的雨夜便利店场景预览"></a><br>
+      <b>GPT 6.2 Astra</b> · <a href="https://ptsfdtz.github.io/711-night/gpt-6.2-Astra/">打开互动场景</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://ptsfdtz.github.io/711-night/gpt-6.2-sol/"><img src="docs/previews/gpt-6.2-sol.png" alt="GPT 6.2 Sol 生成的雨夜便利店场景预览"></a><br>
+      <b>GPT 6.2 Sol</b> · <a href="https://ptsfdtz.github.io/711-night/gpt-6.2-sol/">打开互动场景</a>
     </td>
   </tr>
   <tr>

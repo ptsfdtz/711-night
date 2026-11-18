@@ -33,6 +33,14 @@
     "dir": "gpt-6.1-terra"
   },
   {
+    "name": "GPT 6.2 Astra",
+    "dir": "gpt-6.2-Astra"
+  },
+  {
+    "name": "GPT 6.2 Sol",
+    "dir": "gpt-6.2-sol"
+  },
+  {
     "name": "DeepSeek V4.1 Flash",
     "dir": "deepseek-v4.1-flash"
   },
